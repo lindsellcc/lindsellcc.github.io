@@ -12,7 +12,7 @@
   <div class="container header-inner">
     <a class="brand" href="index.html">
       <img src="assets/images/logo.png" alt="Lindsell Cricket Club logo">
-      <div class="brand-text"><strong>Lindsell Cricket Club</strong><span>Friendly cricket in North Essex</span></div>
+      <div class="brand-text"><strong>Lindsell Cricket Club</strong><span>Friendly Cricket in rural Essex</span></div>
     </a>
     <button class="menu-btn" aria-label="Open menu">☰</button>
     <nav class="nav">
@@ -29,22 +29,26 @@
 
 <section class="page-hero"><div class="container"><div class="kicker">Match centre</div><h1>Fixtures & Results</h1><p>Upcoming cricket, recent results and full scorecards.</p></div></section>
 <section class="section"><div class="container">
-  <div class="notice"><strong>Website v1.0:</strong> Play-Cricket remains the authoritative source for fixtures and results while we prepare the automatic club-site feed.</div>
-  <div class="cards" style="margin-top:24px">
-    <div class="card"><div class="body"><div class="label">Upcoming</div><h3>Fixtures</h3><p>View the full Lindsell CC fixture list on Play-Cricket.</p><a class="btn primary" href="https://lindsell.play-cricket.com/Matches?tab=Fixture" target="_blank" rel="noopener">View fixtures</a></div></div>
-    <div class="card"><div class="body"><div class="label">Completed</div><h3>Results</h3><p>Scorecards and historic results are available through Play-Cricket.</p><a class="btn primary" href="https://lindsell.play-cricket.com/Matches?tab=Result" target="_blank" rel="noopener">View results</a></div></div>
-    <div class="card"><div class="body"><div class="label">Statistics</div><h3>Play-Cricket</h3><p>Player records, scorecards and club statistics.</p><a class="btn primary" href="https://lindsell.play-cricket.com/" target="_blank" rel="noopener">Open Play-Cricket</a></div></div>
-  </div>
+  <div class="section-title"><div><div class="kicker" style="color:var(--gold)">Coming up</div><h2>Upcoming fixtures</h2></div><p>The next scheduled Lindsell matches from Play-Cricket.</p></div>
+  <div class="fixtures-list" data-upcoming-list><div class="notice">Loading upcoming fixtures…</div></div>
+  <div class="data-note" data-match-updated>Loading match data…</div>
+</div></section>
+<section class="section alt"><div class="container">
+  <div class="section-title"><div><div class="kicker" style="color:var(--gold)">Recent cricket</div><h2>Latest results</h2></div><p>Recent completed matches with links to the full Play-Cricket scorecards.</p></div>
+  <div class="fixtures-list" data-results-list><div class="notice">Loading recent results…</div></div>
+  <div class="actions"><a class="btn primary" href="https://lindsell.play-cricket.com/Matches?tab=Fixture" target="_blank" rel="noopener">Full Play-Cricket fixtures</a><a class="btn" style="border:1px solid var(--line)" href="https://lindsell.play-cricket.com/Matches?tab=Result" target="_blank" rel="noopener">Full results</a></div>
 </div></section>
 
 <footer class="footer">
   <div class="container footer-grid">
-    <div><strong style="font-size:22px">Lindsell Cricket Club</strong><p class="small">A friendly village cricket club in North Essex.</p></div>
+    <div><strong style="font-size:22px">Lindsell Cricket Club</strong><p class="small">A friendly village cricket club in rural Essex.</p></div>
     <div><strong>Cricket</strong><br><br><a href="fixtures.html">Fixtures & Results</a><br><a href="live.html">Live Score</a><br><a href="https://lindsell.play-cricket.com/" target="_blank" rel="noopener">Play-Cricket</a></div>
     <div><strong>Club</strong><br><br><a href="club.html">About us</a><br><a href="sponsors.html">Sponsors</a><br><a href="contact.html">Contact</a></div>
   </div>
   <div class="container small" style="margin-top:28px">© 2026 Lindsell Cricket Club</div>
 </footer>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/match-centre.js"></script>
 </body>
 </html>
