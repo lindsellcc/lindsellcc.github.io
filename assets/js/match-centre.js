@@ -42,7 +42,66 @@
   function fixtures(data){
     const up=document.querySelector("[data-upcoming-list]");
     const rec=document.querySelector("[data-results-list]");
-    const row=m=>`<div class="fixture-row"><div class="fixture-date">${esc(displayDate(m.match_date,m.match_time))}</div><div><div class="fixture-teams">${esc(fixtureName(m))}</div><div class="fixture-ground">${esc(m.ground_name||"Venue TBC")}</div></div><a href="${esc(scorecardUrl(m.id))}" target="_blank" rel="noopener">${m.result_description?"Scorecard":"Details"} →</a></div>`;
+const row = m => {
+
+  let matchTitle = fixtureName(m);
+  let resultLine = "";
+
+  if (m.result_description && Array.isArray(m.innings) && m.innings.length) {
+
+    const scores = {};
+
+    m.innings.forEach(i => {
+      scores[i.team_name] = i.score;
+    });
+
+    const homeScore = scores[m.home_name] || "";
+    const awayScore = scores[m.away_name] || "";
+
+    matchTitle =
+      `${m.home_name}${homeScore ? " " + homeScore : ""}` +
+      ` v ` +
+      `${m.away_name}${awayScore ? " " + awayScore : ""}`;
+
+    resultLine = m.result_description;
+  }
+
+  return `
+    <div class="fixture-row">
+
+      <div class="fixture-date">
+        ${esc(displayDate(m.match_date,m.match_time))}
+      </div>
+
+      <div>
+
+        <div class="fixture-teams">
+          ${esc(matchTitle)}
+        </div>
+
+        ${
+          resultLine
+            ? `<div class="fixture-result">${esc(resultLine)}</div>`
+            : ""
+        }
+
+        <div class="fixture-ground">
+          ${esc(m.ground_name || "Venue TBC")}
+        </div>
+
+      </div>
+
+      <a
+        href="${esc(scorecardUrl(m.id))}"
+        target="_blank"
+        rel="noopener"
+      >
+        ${m.result_description ? "Scorecard" : "Details"} →
+      </a>
+
+    </div>
+  `;
+};class="fixture-teams">${esc(fixtureName(m))}</div><div class="fixture-ground">${esc(m.ground_name||"Venue TBC")}</div></div><a href="${esc(scorecardUrl(m.id))}" target="_blank" rel="noopener">${m.result_description?"Scorecard":"Details"} →</a></div>`;
     if(up) up.innerHTML=(data.upcoming||[]).length?data.upcoming.map(row).join(""):`<div class="notice">No upcoming fixtures currently found.</div>`;
     if(rec) rec.innerHTML=(data.recent_results||[]).length?data.recent_results.map(row).join(""):`<div class="notice">No recent results currently found.</div>`;
   }

@@ -736,3 +736,14 @@ img{
     display:none
   }
 }
+
+.fixture-result{
+  margin-top:5px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--green);
+}
+
+.fixture-ground{
+  margin-top:5px;
+}
