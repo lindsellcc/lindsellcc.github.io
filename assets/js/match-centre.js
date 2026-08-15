@@ -15,6 +15,89 @@
   const fixtureName=m=>`${m.home_name||"Home"} v ${m.away_name||"Away"}`;
   const scorecardUrl=id=>id?`${cfg.playCricketSiteUrl}/website/results/${id}`:"#";
 
+  function parseScore(score){
+    const s=String(score||"").trim();
+    const runsMatch=s.match(/^(\d+)/);
+    if(!runsMatch) return null;
+    const runs=Number(runsMatch[1]);
+
+    const wicketsMatch=s.match(/\/(\d+)/);
+    let wickets=null;
+    if(wicketsMatch){
+      wickets=Number(wicketsMatch[1]);
+    }else if(/all out/i.test(s)){
+      wickets=10;
+    }
+
+    return {runs,wickets};
+  }
+
+  function shortTeamName(name){
+    let n=String(name||"").trim();
+    n=n.replace(/\s*-\s*/g," ");
+    n=n.replace(/\s+/g," ");
+    return n;
+  }
+
+  function cricketResultLine(m){
+    const original=String(m.result_description||"").trim();
+    const status=original.toLowerCase();
+
+    // Preserve special/non-completed states exactly as Play-Cricket provides them.
+    if(!original) return "";
+    if(
+      status.includes("match in progress") ||
+      status.includes("cancelled") ||
+      status.includes("canceled") ||
+      status.includes("abandoned") ||
+      status.includes("no result") ||
+      status.includes("tied") ||
+      status.includes("tie")
+    ){
+      return original;
+    }
+
+    if(!Array.isArray(m.innings) || m.innings.length < 2){
+      return original;
+    }
+
+    const byTeam={};
+    m.innings.forEach(i=>{
+      byTeam[i.team_name]=parseScore(i.score);
+    });
+
+    const home=byTeam[m.home_name];
+    const away=byTeam[m.away_name];
+    if(!home || !away) return original;
+
+    const homeWon=home.runs>away.runs;
+    const awayWon=away.runs>home.runs;
+    if(!homeWon && !awayWon) return original;
+
+    const winnerName=shortTeamName(homeWon?m.home_name:m.away_name);
+
+    // Infer whether the winner batted second from the innings order.
+    const secondInningsTeam=m.innings[1] && m.innings[1].team_name;
+    const winnerBattedSecond=secondInningsTeam === (homeWon?m.home_name:m.away_name);
+
+    if(winnerBattedSecond){
+      const winnerScore=homeWon?home:away;
+      if(winnerScore.wickets!==null){
+        const wicketsRemaining=Math.max(0,10-winnerScore.wickets);
+        if(wicketsRemaining>0){
+          return `${winnerName} won by ${wicketsRemaining} wicket${wicketsRemaining===1?"":"s"}`;
+        }
+      }
+    }
+
+    const margin=Math.abs(home.runs-away.runs);
+    if(margin>0){
+      return `${winnerName} won by ${margin} run${margin===1?"":"s"}`;
+    }
+
+    return original;
+  }
+
   async function loadData(){
     const r=await fetch(`${DATA_URL}?v=${Date.now()}`,{cache:"no-store"});
     if(!r.ok) throw new Error("match-data");
@@ -32,7 +115,7 @@
       const m=data.latest_result;
       if(m){
         const inn=(m.innings||[]).map(i=>`<span class="innings-chip">${esc(i.team_name)} ${esc(i.score)}</span>`).join("");
-        l.innerHTML=`<div class="match-label">Latest result</div><h3>${esc(fixtureName(m))}</h3><div class="match-meta"><span>${esc(displayDate(m.match_date,m.match_time))}</span></div><div class="match-result">${esc(m.result_description||"Result available")}</div><div class="innings-list">${inn}</div><div class="actions"><a class="btn primary" href="${esc(scorecardUrl(m.id))}" target="_blank" rel="noopener">View scorecard</a></div>`;
+        l.innerHTML=`<div class="match-label">Latest result</div><h3>${esc(fixtureName(m))}</h3><div class="match-meta"><span>${esc(displayDate(m.match_date,m.match_time))}</span></div><div class="match-result">${esc(cricketResultLine(m)||"Result available")}</div><div class="innings-list">${inn}</div><div class="actions"><a class="btn primary" href="${esc(scorecardUrl(m.id))}" target="_blank" rel="noopener">View scorecard</a></div>`;
       }else l.innerHTML=`<div class="match-label">Latest result</div><h3>No recent result found</h3>`;
     }
     const note=document.querySelector("[data-match-updated]");
@@ -63,7 +146,7 @@ const row = m => {
       ` v ` +
       `${m.away_name}${awayScore ? " " + awayScore : ""}`;
 
-    resultLine = m.result_description;
+    resultLine = cricketResultLine(m);
   }
 
   return `
