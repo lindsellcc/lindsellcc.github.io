@@ -101,7 +101,7 @@ const row = m => {
 
     </div>
   `;
-};class="fixture-teams">${esc(fixtureName(m))}</div><div class="fixture-ground">${esc(m.ground_name||"Venue TBC")}</div></div><a href="${esc(scorecardUrl(m.id))}" target="_blank" rel="noopener">${m.result_description?"Scorecard":"Details"} →</a></div>`;
+};
     if(up) up.innerHTML=(data.upcoming||[]).length?data.upcoming.map(row).join(""):`<div class="notice">No upcoming fixtures currently found.</div>`;
     if(rec) rec.innerHTML=(data.recent_results||[]).length?data.recent_results.map(row).join(""):`<div class="notice">No recent results currently found.</div>`;
   }
