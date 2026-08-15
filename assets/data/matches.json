@@ -1,8 +1,257 @@
 {
-  "generated_at": null,
+  "generated_at": "2026-08-15T20:48:39.371688+00:00",
   "season": 2026,
-  "next_fixture": null,
-  "latest_result": null,
-  "upcoming": [],
-  "recent_results": []
+  "next_fixture": {
+    "id": 7744490,
+    "match_date": "15/08/2026",
+    "match_time": "",
+    "ground_name": "Lindsell Cricket Club",
+    "home_name": "Lindsell CC Friendly XI",
+    "away_name": "Lindsell CC President's XI",
+    "competition_type": "Friendly",
+    "match_type": "Limited Overs"
+  },
+  "latest_result": {
+    "id": 7744489,
+    "match_date": "13/08/2026",
+    "match_time": "12:00",
+    "ground_name": "Lindsell Cricket Club",
+    "home_name": "Lindsell CC Friendly XI",
+    "away_name": "Lindsell CC Twenty20",
+    "competition_type": "Friendly",
+    "match_type": "Limited Overs",
+    "result_description": "Match In Progress",
+    "innings": [
+      {
+        "team_name": "Lindsell CC Friendly XI",
+        "score": "0/0 (0.0)"
+      }
+    ]
+  },
+  "upcoming": [
+    {
+      "id": 7744490,
+      "match_date": "15/08/2026",
+      "match_time": "",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Lindsell CC President's XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs"
+    },
+    {
+      "id": 7744491,
+      "match_date": "19/08/2026",
+      "match_time": "",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Hockerill CC Sunday 1st XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs"
+    }
+  ],
+  "recent_results": [
+    {
+      "id": 7744489,
+      "match_date": "13/08/2026",
+      "match_time": "12:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Lindsell CC Twenty20",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Match In Progress",
+      "innings": [
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "0/0 (0.0)"
+        }
+      ]
+    },
+    {
+      "id": 7659956,
+      "match_date": "12/08/2026",
+      "match_time": "17:30",
+      "ground_name": "Dunmow Cricket Club",
+      "home_name": "Dunmow CC Friendly XI",
+      "away_name": "Lindsell CC Friendly XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Dunmow CC - Friendly XI - Won",
+      "innings": [
+        {
+          "team_name": "Dunmow CC Friendly XI",
+          "score": "184/4 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "179/8 (20.0)"
+        }
+      ]
+    },
+    {
+      "id": 7604578,
+      "match_date": "08/08/2026",
+      "match_time": "14:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Sky Khalsa CC 1st XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Sky Khalsa CC - 1st XI - Won",
+      "innings": [
+        {
+          "team_name": "Sky Khalsa CC 1st XI",
+          "score": "215/4 (30.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "204/7 (29.0)"
+        }
+      ]
+    },
+    {
+      "id": 7604576,
+      "match_date": "07/08/2026",
+      "match_time": "18:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Eastons CC Sunday 1st XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Lindsell CC - Friendly XI - Won",
+      "innings": [
+        {
+          "team_name": "Eastons CC Sunday 1st XI",
+          "score": "171/6 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "174/7 (19.2)"
+        }
+      ]
+    },
+    {
+      "id": 7720563,
+      "match_date": "29/07/2026",
+      "match_time": "17:30",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Twenty20",
+      "away_name": "Dunmow CC Sunday 1st XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Dunmow CC - Sunday 1st XI - Won",
+      "innings": [
+        {
+          "team_name": "Dunmow CC Sunday 1st XI",
+          "score": "183/3 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Twenty20",
+          "score": "137/8 (20.0)"
+        }
+      ]
+    },
+    {
+      "id": 7604573,
+      "match_date": "25/07/2026",
+      "match_time": "14:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Upton CC, Notts Friendly XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Lindsell CC - Friendly XI - Won",
+      "innings": [
+        {
+          "team_name": "Upton CC, Notts Friendly XI",
+          "score": "194/7 (35.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "195/3 (24.3)"
+        }
+      ]
+    },
+    {
+      "id": 7735441,
+      "match_date": "24/07/2026",
+      "match_time": "18:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Eastons CC Sunday 1st XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Match In Progress",
+      "innings": [
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "160/8 (20.0)"
+        }
+      ]
+    },
+    {
+      "id": 7604571,
+      "match_date": "18/07/2026",
+      "match_time": "14:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Hatfield Broad Oak CC Sunday Friendly",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Cancelled",
+      "innings": [
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": ""
+        },
+        {
+          "team_name": "Hatfield Broad Oak CC Sunday Friendly",
+          "score": ""
+        }
+      ]
+    },
+    {
+      "id": 7604569,
+      "match_date": "11/07/2026",
+      "match_time": "14:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Lindsell CC President's XI",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Lindsell CC - President's XI - Won",
+      "innings": [
+        {
+          "team_name": "Lindsell CC President's XI",
+          "score": "193/9 (35.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "163 all out (32.1)"
+        }
+      ]
+    },
+    {
+      "id": 7696043,
+      "match_date": "08/07/2026",
+      "match_time": "12:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Twenty20",
+      "away_name": "Sampfords CC Sampfords CC",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Lindsell CC - Twenty20 - Won",
+      "innings": [
+        {
+          "team_name": "Sampfords CC Sampfords CC",
+          "score": "156/4 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Twenty20",
+          "score": "160/3 (18.0)"
+        }
+      ]
+    }
+  ]
 }
