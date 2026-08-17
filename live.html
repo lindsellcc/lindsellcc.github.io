@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Official website of Lindsell Cricket Club">
+<meta name="description" content="Live cricket score from Lindsell Cricket Club">
 <title>Live Score | Lindsell Cricket Club</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=1.2">
 </head>
 <body>
 <header class="site-header">
@@ -27,11 +27,59 @@
   </div>
 </header>
 
-<section class="page-hero"><div class="container"><div class="kicker">Live</div><h1>Live Score</h1><p>Follow Lindsell CC when live scoring is active.</p></div></section>
-<section class="section"><div class="container split">
-  <div><h2 style="font-size:44px;margin-top:0">Lindsell live scoreboard</h2><p class="prose">Our existing live-score system remains fully operational while the new club website is being built. For Website v1.0, the button below opens the current live scoreboard.</p><a class="btn primary" href="https://samstallan0707.github.io/lindsell-live-score/" target="_blank" rel="noopener">Open Live Scoreboard</a></div>
-  <img src="assets/images/ground-action.webp" alt="Cricket at Lindsell">
-</div></section>
+<section class="page-hero live-page-hero">
+  <div class="container">
+    <div class="kicker">Match centre</div>
+    <h1>Live Score</h1>
+    <p>Follow Lindsell CC live. This page automatically changes between no match, waiting, live scoring and completed-match states.</p>
+  </div>
+</section>
+
+<section class="section live-score-section">
+  <div class="container">
+    <div class="live-score-toolbar">
+      <div>
+        <div class="kicker" style="color:var(--gold)">Lindsell CC live scoreboard</div>
+        <h2>Match scoreboard</h2>
+      </div>
+      <a class="btn primary" href="live-scoreboard.html" target="_blank" rel="noopener">Open full screen</a>
+    </div>
+
+    <div class="live-score-frame-shell">
+      <iframe
+        class="live-score-frame"
+        src="live-scoreboard.html"
+        title="Lindsell CC live cricket scoreboard"
+        loading="eager"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="live-page-note">
+      <strong>Automatic live status.</strong>
+      If no broadcast is armed, the scoreboard shows the no-live-match screen. When the home scoring PC prepares a fixture it changes to waiting, then moves to the live scoreboard automatically when Play-Cricket Scorer starts.
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <div class="section-title">
+      <div>
+        <div class="kicker" style="color:var(--gold)">Coming up</div>
+        <h2>Next fixture</h2>
+      </div>
+      <p>The next scheduled fixture is kept up to date from Play-Cricket.</p>
+    </div>
+    <div class="match-grid">
+      <article class="match-card" data-next-fixture>
+        <div class="match-label">Next fixture</div>
+        <h3>Loading…</h3>
+      </article>
+    </div>
+    <div class="data-note" data-match-updated>Loading match data…</div>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container footer-grid">
@@ -41,6 +89,9 @@
   </div>
   <div class="container small" style="margin-top:28px">© 2026 Lindsell Cricket Club</div>
 </footer>
-<script src="assets/js/site.js"></script>
+
+<script src="assets/js/site.js?v=1.2"></script>
+<script src="assets/js/config.js?v=1.2"></script>
+<script src="assets/js/match-centre.js?v=1.1.1"></script>
 </body>
 </html>

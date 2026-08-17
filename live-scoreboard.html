@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lindsell Live Cricket Scoreboard</title>
+<style>
+:root{
+  --green:#039C43;
+  --gold:#d8ad39;
+  --white:#ffffff;
+  --muted:#b9c2bd;
+  --panel:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.10);
+  --bg1:#07100b;
+  --bg2:#020403;
+}
+*{box-sizing:border-box}
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:#020403;
+  font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+  color:var(--white);
+}
+body{display:flex;align-items:center;justify-content:center}
+.scoreboard{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:7vh 64vh 17vh 12vh;
+  background:
+    radial-gradient(circle at 50% 105%,rgba(3,156,67,.12),transparent 46%),
+    linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid var(--line);
+}
+.fixture{
+  display:flex;
+  align-items:center;
+  gap:1.4vw;
+  font-size:1.7vw;
+  font-weight:900;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+.fixture-v{
+  color:var(--gold);
+  font-size:1.4vw;
+}
+.main-area{
+  display:grid;
+  grid-template-columns:20% 60% 20%;
+  align-items:stretch;
+  padding:.8vh 2.6vw 1.6vh;
+  gap:1.2vw;
+}
+.batter-side{
+  align-self:end;
+  transform:translateY(-6vh);
+  position:relative;
+  height:47%;
+  min-height:0;
+  padding:1.4vh 1.8vw 0;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+  display:grid;
+  grid-template-rows:auto auto auto;
+  align-content:end;
+  row-gap:.8vh;
+  overflow:hidden;
+}
+.left-batter{border-left:.45vw solid var(--gold)}
+.right-batter{
+  border-right:.45vw solid var(--green);
+  transform:translateY(-6vh) translateX(-1vw);
+}
+.batter-name{
+  font-size:2.1vw;
+  font-weight:900;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:clip;
+  max-width:100%;
+}
+.batter-balls{
+  margin-top:0;
+  margin-bottom:.5vh;
+  color:var(--muted);
+  font-size:1vw;
+  font-weight:800;
+  letter-spacing:.05em;
+}
+.batter-score{
+  align-self:end;
+  justify-self:center;
+  font-size:10.6vw;
+  line-height:.82;
+  font-weight:900;
+  letter-spacing:-.04em;
+  margin-top:0;
+}
+
+/* Move batter name, balls and score upward inside the box only */
+.batter-name,
+.batter-balls,
+.batter-score{
+  transform:translateY(-16pt);
+}
+.score-centre{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+}
+.batting-team{
+  margin-bottom:1.2vh;
+  transform:translateY(-8vh);
+  color:var(--gold);
+  font-size:1.7vw;
+  font-weight:900;
+  letter-spacing:.05em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:90%;
+}
+.main-score{
+  font-size:20.5vw;
+  transform:translateY(-5vh);
+  line-height:.72;
+  font-weight:900;
+  letter-spacing:-.055em;
+  white-space:nowrap;
+}
+.overs{
+  margin-top:2vh;
+  transform:translateY(4vh);
+  color:var(--muted);
+  font-size:5.5vw;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.info-row{
+  display:grid;
+  grid-template-columns:22% 56% 22%;
+  gap:1.4vw;
+  padding:0 2.6vw 1.1vh;
+}
+.bowler-box,
+.projection-box{
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.bowler-box{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  padding:0 1.8vw;
+  border-left:.35vw solid var(--green);
+}
+.bowler-left{
+  display:flex;
+  align-items:center;
+  gap:1vw;
+  min-width:0;
+}
+.gold-label{
+  color:var(--gold);
+  font-size:0.8vw;
+  font-weight:900;
+  letter-spacing:.11em;
+  white-space:nowrap;
+}
+.bowler-name{
+  font-size:1.65vw;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.bowler-figures-wrap{
+  text-align:right;
+}
+.bowler-figures{
+  font-size:1.65vw;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+.projection-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.projection-footer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.projection-main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-right:.35vw solid var(--gold);
+  width:calc(100% - 1.5vw);
+}
+.partnership-main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-left:.35vw solid var(--gold);
+}
+.partnership-value{
+  margin-top:.3vh;
+  color:var(--gold);
+  font-size:3vw;
+  line-height:1;
+  font-weight:900;
+}
+.bowler-footer{
+  position:relative;
+  display:block;
+  padding:0 1.5vw;
+}
+.bowler-identity{
+  position:absolute;
+  left:1.5vw;
+  top:1.2vh;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:.45vh;
+  min-width:0;
+}
+.bowler-identity .bowler-name{
+  font-size:1.65vw;
+}
+.bowler-figures-centre{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:3.2vw;
+  font-weight:900;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.projection-value{
+  margin-top:.3vh;
+  font-size:6vw;
+  line-height:1;
+  font-weight:900;
+}
+.footer{
+  display:grid;
+  grid-template-columns:22% 78%;
+  gap:1.4vw;
+  padding:0 2.6vw .8vh;
+}
+.footer-card{
+  background:var(--panel);
+  border-top:.35vh solid var(--green);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.gold-card{border-top-color:var(--gold)}
+.footer-label{
+  color:var(--muted);
+  font-size:.9vw;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.footer-value{
+  margin-top:.45vh;
+  font-weight:900;
+}
+.small-value{font-size:2.15vw}
+.gold-value{color:var(--gold)}
+.over-card{
+  flex-direction:column;
+  gap:.85vh;
+}
+.over-card .gold-label{
+  font-size:1.05vw;
+}
+.ball-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55vw;
+  max-width:95%;
+}
+.ball{
+  width:2.45vw;
+  height:2.45vw;
+  min-width:2.45vw;
+  border-radius:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:1.25vw;
+  font-weight:900;
+}
+.ball.wicket{
+  color:#e33;
+  border-color:rgba(227,51,51,.55);
+}
+.ball.boundary{
+  color:var(--green);
+  border-color:rgba(3,156,67,.45);
+}
+
+/* WIDE / NO-BALL BOXES */
+.ball.wide,
+.ball.noball{
+  width:3.15vw;
+  height:3.15vw;
+  min-width:3.15vw;
+  flex-direction:column;
+  line-height:1;
+  gap:.12vw;
+  overflow:hidden;
+}
+
+.ball.wide{
+  border-color:rgba(70,145,255,.95);
+  background:rgba(50,105,190,.22);
+}
+
+.ball.noball{
+  border-color:rgba(165,90,255,.95);
+  background:rgba(110,55,175,.22);
+}
+
+.ball .extra-code{
+  display:block;
+  font-size:1.05vw;
+  line-height:1;
+  font-weight:900;
+  color:#fff;
+}
+
+.ball .extra-runs{
+  display:block;
+  font-size:.92vw;
+  line-height:1;
+  font-weight:900;
+  color:#fff;
+}
+
+.over-card.compact .ball.wide,
+.over-card.compact .ball.noball{
+  width:2.55vw;
+  height:2.55vw;
+  min-width:2.55vw;
+}
+
+.over-card.ultra-compact .ball.wide,
+.over-card.ultra-compact .ball.noball{
+  width:2.1vw;
+  height:2.1vw;
+  min-width:2.1vw;
+}
+.over-card.compact .ball-row{gap:.35vw}
+.over-card.compact .ball{width:2vw;height:2vw;min-width:2vw;font-size:1vw}
+.over-card.ultra-compact .ball-row{gap:.25vw}
+.over-card.ultra-compact .ball{width:1.65vw;height:1.65vw;min-width:1.65vw;font-size:.82vw}
+.watermark{
+  position:absolute;
+  right:.8vw;
+  bottom:.35vh;
+  color:rgba(255,255,255,.10);
+  font-size:.62vw;
+  font-weight:800;
+  letter-spacing:.06em;
+}
+@media (max-aspect-ratio:4/3){
+  .fixture{font-size:2.2vw}.fixture-v{font-size:1.8vw}
+  .batter-name{font-size:2.7vw}.batter-balls{font-size:1.3vw}.batter-score{font-size:12vw}
+  .batting-team{font-size:2.1vw}.main-score{font-size:19vw}.overs{font-size:5.2vw}
+  .gold-label{font-size:1.3vw}.bowler-name,.bowler-figures{font-size:2vw}
+  .projection-value{font-size:4.5vw}
+  .footer-label{font-size:1.1vw}.small-value{font-size:2.6vw}
+  .ball{width:2.8vw;height:2.8vw;min-width:2.8vw;font-size:1.4vw}
+}
+
+/* ===== PUBLIC WEBSITE / MOBILE LAUNCH LAYER ===== */
+.public-layer{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:
+    radial-gradient(circle at 50% 105%,rgba(3,156,67,.16),transparent 45%),
+    linear-gradient(180deg,#07100b 0%,#020403 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  text-align:center;
+}
+.public-layer[hidden]{display:none}
+.public-panel{
+  width:min(92vw,720px);
+  padding:34px 28px;
+  border-top:3px solid var(--green);
+  background:rgba(255,255,255,.045);
+  box-shadow:0 18px 70px rgba(0,0,0,.38);
+}
+.public-eyebrow{
+  color:var(--gold);
+  font-size:clamp(12px,2.8vw,18px);
+  font-weight:900;
+  letter-spacing:.16em;
+  margin-bottom:14px;
+}
+.public-title{
+  margin:0;
+  font-size:clamp(34px,8vw,72px);
+  line-height:.94;
+  font-weight:900;
+  letter-spacing:-.035em;
+}
+.public-copy{
+  max-width:560px;
+  margin:18px auto 0;
+  color:var(--muted);
+  font-size:clamp(15px,3.7vw,20px);
+  line-height:1.45;
+}
+.public-button{
+  appearance:none;
+  border:0;
+  border-radius:4px;
+  margin-top:25px;
+  padding:16px 24px;
+  background:var(--green);
+  color:#fff;
+  font:inherit;
+  font-size:clamp(15px,3.8vw,20px);
+  font-weight:900;
+  letter-spacing:.06em;
+  cursor:pointer;
+}
+.public-button.gold{
+  background:var(--gold);
+  color:#07100b;
+}
+.public-small{
+  margin-top:14px;
+  color:rgba(255,255,255,.48);
+  font-size:13px;
+  line-height:1.4;
+}
+.rotate-symbol{
+  display:block;
+  color:var(--gold);
+  font-size:64px;
+  line-height:1;
+  margin-bottom:16px;
+}
+#scoreboardRoot[hidden]{display:none}
+@media (orientation:landscape){
+  #rotateLayer{display:none !important}
+}
+
+
+/* ===== v11.4 PHONE LANDSCAPE FIX =====
+   Desktop keeps the exact original TV CSS.
+   Only short landscape screens use a fixed 1920x1080 canvas, then scale
+   the complete canvas proportionally to the visible Safari viewport.
+*/
+@media (orientation: landscape) and (max-height: 600px) {
+
+:root{
+  --green:#039C43;
+  --gold:#d8ad39;
+  --white:#ffffff;
+  --muted:#b9c2bd;
+  --panel:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.10);
+  --bg1:#07100b;
+  --bg2:#020403;
+}
+*{box-sizing:border-box}
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:#020403;
+  font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+  color:var(--white);
+}
+body{display:flex;align-items:center;justify-content:center}
+.scoreboard{
+  width:1920px;
+  height:1080px;
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform-origin:center center;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:75.6000px 691.2000px 183.6000px 129.6000px;
+  background:
+    radial-gradient(circle at 50% 105%,rgba(3,156,67,.12),transparent 46%),
+    linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid var(--line);
+}
+.fixture{
+  display:flex;
+  align-items:center;
+  gap:26.8800px;
+  font-size:32.6400px;
+  font-weight:900;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+.fixture-v{
+  color:var(--gold);
+  font-size:26.8800px;
+}
+.main-area{
+  display:grid;
+  grid-template-columns:20% 60% 20%;
+  align-items:stretch;
+  padding:8.6400px 49.9200px 17.2800px;
+  gap:23.0400px;
+}
+.batter-side{
+  align-self:end;
+  transform:translateY(-64.8000px);
+  position:relative;
+  height:47%;
+  min-height:0;
+  padding:15.1200px 34.5600px 0;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+  display:grid;
+  grid-template-rows:auto auto auto;
+  align-content:end;
+  row-gap:8.6400px;
+  overflow:hidden;
+}
+.left-batter{border-left:8.6400px solid var(--gold)}
+.right-batter{
+  border-right:8.6400px solid var(--green);
+  transform:translateY(-64.8000px) translateX(-19.2000px);
+}
+.batter-name{
+  font-size:40.3200px;
+  font-weight:900;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:clip;
+  max-width:100%;
+}
+.batter-balls{
+  margin-top:0;
+  margin-bottom:5.4000px;
+  color:var(--muted);
+  font-size:19.2000px;
+  font-weight:800;
+  letter-spacing:.05em;
+}
+.batter-score{
+  align-self:end;
+  justify-self:center;
+  font-size:203.5200px;
+  line-height:.82;
+  font-weight:900;
+  letter-spacing:-.04em;
+  margin-top:0;
+}
+
+/* Move batter name, balls and score upward inside the box only */
+.batter-name,
+.batter-balls,
+.batter-score{
+  transform:translateY(-16pt);
+}
+.score-centre{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+}
+.batting-team{
+  margin-bottom:12.9600px;
+  transform:translateY(-86.4000px);
+  color:var(--gold);
+  font-size:32.6400px;
+  font-weight:900;
+  letter-spacing:.05em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:90%;
+}
+.main-score{
+  font-size:393.6000px;
+  transform:translateY(-54.0000px);
+  line-height:.72;
+  font-weight:900;
+  letter-spacing:-.055em;
+  white-space:nowrap;
+}
+.overs{
+  margin-top:21.6000px;
+  transform:translateY(43.2000px);
+  color:var(--muted);
+  font-size:105.6000px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.info-row{
+  display:grid;
+  grid-template-columns:22% 56% 22%;
+  gap:26.8800px;
+  padding:0 49.9200px 11.8800px;
+}
+.bowler-box,
+.projection-box{
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.bowler-box{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  padding:0 34.5600px;
+  border-left:6.7200px solid var(--green);
+}
+.bowler-left{
+  display:flex;
+  align-items:center;
+  gap:19.2000px;
+  min-width:0;
+}
+.gold-label{
+  color:var(--gold);
+  font-size:15.3600px;
+  font-weight:900;
+  letter-spacing:.11em;
+  white-space:nowrap;
+}
+.bowler-name{
+  font-size:31.6800px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.bowler-figures-wrap{
+  text-align:right;
+}
+.bowler-figures{
+  font-size:31.6800px;
+  font-weight:900;
+  letter-spacing:.02em;
+}
+.projection-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.projection-footer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.projection-main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-right:6.7200px solid var(--gold);
+  width:calc(100% - 28.8000px);
+}
+.partnership-main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-left:6.7200px solid var(--gold);
+}
+.partnership-value{
+  margin-top:3.2400px;
+  color:var(--gold);
+  font-size:57.6000px;
+  line-height:1;
+  font-weight:900;
+}
+.bowler-footer{
+  position:relative;
+  display:block;
+  padding:0 28.8000px;
+}
+.bowler-identity{
+  position:absolute;
+  left:28.8000px;
+  top:12.9600px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4.8600px;
+  min-width:0;
+}
+.bowler-identity .bowler-name{
+  font-size:31.6800px;
+}
+.bowler-figures-centre{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:61.4400px;
+  font-weight:900;
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.projection-value{
+  margin-top:3.2400px;
+  font-size:115.2000px;
+  line-height:1;
+  font-weight:900;
+}
+.footer{
+  display:grid;
+  grid-template-columns:22% 78%;
+  gap:26.8800px;
+  padding:0 49.9200px 8.6400px;
+}
+.footer-card{
+  background:var(--panel);
+  border-top:3.7800px solid var(--green);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.gold-card{border-top-color:var(--gold)}
+.footer-label{
+  color:var(--muted);
+  font-size:17.2800px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.footer-value{
+  margin-top:4.8600px;
+  font-weight:900;
+}
+.small-value{font-size:41.2800px}
+.gold-value{color:var(--gold)}
+.over-card{
+  flex-direction:column;
+  gap:9.1800px;
+}
+.over-card .gold-label{
+  font-size:20.1600px;
+}
+.ball-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10.5600px;
+  max-width:95%;
+}
+.ball{
+  width:47.0400px;
+  height:47.0400px;
+  min-width:47.0400px;
+  border-radius:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:24.0000px;
+  font-weight:900;
+}
+.ball.wicket{
+  color:#e33;
+  border-color:rgba(227,51,51,.55);
+}
+.ball.boundary{
+  color:var(--green);
+  border-color:rgba(3,156,67,.45);
+}
+
+/* WIDE / NO-BALL BOXES */
+.ball.wide,
+.ball.noball{
+  width:60.4800px;
+  height:60.4800px;
+  min-width:60.4800px;
+  flex-direction:column;
+  line-height:1;
+  gap:2.3040px;
+  overflow:hidden;
+}
+
+.ball.wide{
+  border-color:rgba(70,145,255,.95);
+  background:rgba(50,105,190,.22);
+}
+
+.ball.noball{
+  border-color:rgba(165,90,255,.95);
+  background:rgba(110,55,175,.22);
+}
+
+.ball .extra-code{
+  display:block;
+  font-size:20.1600px;
+  line-height:1;
+  font-weight:900;
+  color:#fff;
+}
+
+.ball .extra-runs{
+  display:block;
+  font-size:17.6640px;
+  line-height:1;
+  font-weight:900;
+  color:#fff;
+}
+
+.over-card.compact .ball.wide,
+.over-card.compact .ball.noball{
+  width:48.9600px;
+  height:48.9600px;
+  min-width:48.9600px;
+}
+
+.over-card.ultra-compact .ball.wide,
+.over-card.ultra-compact .ball.noball{
+  width:40.3200px;
+  height:40.3200px;
+  min-width:40.3200px;
+}
+.over-card.compact .ball-row{gap:6.7200px}
+.over-card.compact .ball{width:38.4000px;height:38.4000px;min-width:38.4000px;font-size:19.2000px}
+.over-card.ultra-compact .ball-row{gap:4.8000px}
+.over-card.ultra-compact .ball{width:31.6800px;height:31.6800px;min-width:31.6800px;font-size:15.7440px}
+.watermark{
+  position:absolute;
+  right:15.3600px;
+  bottom:3.7800px;
+  color:rgba(255,255,255,.10);
+  font-size:11.9040px;
+  font-weight:800;
+  letter-spacing:.06em;
+}
+
+
+  html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+  }
+
+  body{
+    display:block;
+  }
+
+  #scoreboardRoot{
+    width:1920px;
+    height:1080px;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform-origin:center center;
+  }
+}
+
+
+.waiting-panel{
+  width:min(94vw,900px);
+}
+.waiting-fixture{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin:10px auto 24px;
+  flex-wrap:wrap;
+}
+.waiting-team{
+  font-size:clamp(22px,5vw,40px);
+  font-weight:900;
+  letter-spacing:.035em;
+  line-height:1.05;
+}
+.waiting-v{
+  color:var(--gold);
+  font-size:clamp(18px,4vw,28px);
+  font-weight:900;
+}
+.waiting-title{
+  font-size:clamp(30px,7vw,62px);
+}
+.waiting-meta{
+  margin-top:18px;
+  color:var(--gold);
+  font-size:clamp(13px,3vw,17px);
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+
+/* ===== v11.9 MATCH COMPLETE ===== */
+.completed-panel{
+  width:min(94vw,900px);
+  border-top-color:var(--gold);
+}
+.completed-fixture{
+  margin:4px auto 22px;
+  color:var(--muted);
+  font-size:clamp(13px,2.8vw,17px);
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.completed-scores{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:18px;
+  margin:28px auto 18px;
+}
+.completed-team{
+  min-width:0;
+}
+.completed-team-name{
+  font-size:clamp(18px,4.5vw,34px);
+  font-weight:900;
+  line-height:1.05;
+  overflow-wrap:anywhere;
+}
+.completed-score{
+  margin-top:8px;
+  color:var(--gold);
+  font-size:clamp(42px,9vw,80px);
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-.04em;
+}
+.completed-overs{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:clamp(12px,2.8vw,16px);
+  font-weight:800;
+}
+.completed-v{
+  color:var(--green);
+  font-size:clamp(18px,4vw,28px);
+  font-weight:900;
+}
+.completed-result{
+  margin:22px auto 0;
+  max-width:760px;
+  font-size:clamp(17px,4vw,27px);
+  line-height:1.2;
+  font-weight:900;
+}
+@media (max-width:620px){
+  .completed-scores{
+    grid-template-columns:1fr;
+    gap:11px;
+  }
+  .completed-v{display:none}
+  .completed-team{
+    padding:10px 0;
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="public-layer" id="standbyLayer">
+  <div class="public-panel">
+    <div class="public-eyebrow">LINDSELL CC LIVE SCOREBOARD</div>
+    <h1 class="public-title">NO LIVE MATCH</h1>
+    <p class="public-copy">
+      The scoreboard will automatically come to life when the next Lindsell CC
+      match is being live scored.
+    </p>
+    <button class="public-button gold" id="playCricketButton" type="button">
+      VIEW FIXTURES &amp; RESULTS ON PLAY-CRICKET
+    </button>
+    <div class="public-small">Live scores remain available through breaks and delays.</div>
+  </div>
+</div>
+
+
+<div class="public-layer" id="waitingLayer" hidden>
+  <div class="public-panel waiting-panel">
+    <div class="public-eyebrow">LINDSELL CC LIVE SCOREBOARD</div>
+    <div class="waiting-fixture">
+      <div class="waiting-team" id="waitingHomeTeam">LINDSELL CC</div>
+      <div class="waiting-v">v</div>
+      <div class="waiting-team" id="waitingAwayTeam">OPPOSITION CC</div>
+    </div>
+    <h1 class="public-title waiting-title">PLAY WAITING TO COMMENCE</h1>
+    <p class="public-copy">
+      Tonight's fixture has been connected. The live scoreboard will appear
+      automatically as soon as scoring begins.
+    </p>
+    <div class="waiting-meta" id="waitingMeta"></div>
+  </div>
+</div>
+
+
+<div class="public-layer" id="completedLayer" hidden>
+  <div class="public-panel completed-panel">
+    <div class="public-eyebrow">LINDSELL CC LIVE SCOREBOARD</div>
+    <h1 class="public-title">MATCH COMPLETE</h1>
+    <div class="completed-fixture" id="completedFixtureMeta"></div>
+
+    <div class="completed-scores">
+      <div class="completed-team">
+        <div class="completed-team-name" id="completedHomeTeam">LINDSELL CC</div>
+        <div class="completed-score" id="completedHomeScore">—</div>
+        <div class="completed-overs" id="completedHomeOvers"></div>
+      </div>
+
+      <div class="completed-v">v</div>
+
+      <div class="completed-team">
+        <div class="completed-team-name" id="completedAwayTeam">OPPOSITION CC</div>
+        <div class="completed-score" id="completedAwayScore">—</div>
+        <div class="completed-overs" id="completedAwayOvers"></div>
+      </div>
+    </div>
+
+    <div class="completed-result" id="completedResult">Result available</div>
+
+    <button class="public-button gold" id="scorecardButton" type="button">
+      VIEW FULL SCORECARD
+    </button>
+  </div>
+</div>
+
+<div class="public-layer" id="launchLayer" hidden>
+  <div class="public-panel">
+    <div class="public-eyebrow">LINDSELL CC</div>
+    <h1 class="public-title">LIVE MATCH</h1>
+    <p class="public-copy">
+      A match is currently being broadcast. Tap below to open the scoreboard
+      full-screen. Landscape viewing is recommended.
+    </p>
+    <button class="public-button" id="launchButton" type="button">
+      VIEW LIVE SCOREBOARD
+    </button>
+  </div>
+</div>
+
+<div class="public-layer" id="rotateLayer" hidden>
+  <div class="public-panel">
+    <span class="rotate-symbol">↻</span>
+    <div class="public-eyebrow">LIVE SCOREBOARD</div>
+    <h1 class="public-title">ROTATE YOUR PHONE</h1>
+    <p class="public-copy">
+      The Lindsell CC scoreboard is designed for landscape viewing.
+    </p>
+  </div>
+</div>
+
+<div class="scoreboard" id="scoreboardRoot" hidden>
+
+  <header class="topbar">
+    <div class="fixture">
+      <span id="homeTeam">LINDSELL CC</span>
+      <span class="fixture-v">v</span>
+      <span id="awayTeam">OPPOSITION CC</span>
+    </div>
+  </header>
+
+  <main class="main-area">
+    <section class="batter-side left-batter" id="batter1Card">
+      <div class="batter-name"><span id="batter1Name">C POTTER</span> <span id="batter1Star">*</span></div>
+      <div class="batter-balls"><span id="batter1Balls">82</span> BALLS</div>
+      <div class="batter-score" id="batter1Runs">64</div>
+    </section>
+
+    <section class="score-centre">
+      <div class="batting-team" id="battingTeam">LINDSELL CC</div>
+      <div class="main-score"><span id="runs">146</span>/<span id="wickets">4</span></div>
+      <div class="overs"><span id="overs">27.3</span> OVERS</div>
+    </section>
+
+    <section class="batter-side right-batter" id="batter2Card">
+      <div class="batter-name"><span id="batter2Name">R GLYNN</span> <span id="batter2Star">*</span></div>
+      <div class="batter-balls"><span id="batter2Balls">31</span> BALLS</div>
+      <div class="batter-score" id="batter2Runs">28</div>
+    </section>
+  </main>
+
+  <section class="info-row">
+    <div class="partnership-main">
+      <div class="footer-label" id="stat3Label">PARTNERSHIP</div>
+      <div class="footer-value partnership-value" id="stat3Value">47</div>
+    </div>
+
+    <div class="projection-box over-card" id="lastSix">
+      <div class="gold-label">THIS OVER</div>
+    </div>
+
+    <div class="projection-main">
+      <div class="gold-label" id="stat2Label">PROJECTED SCORE</div>
+      <div class="projection-value" id="stat2Value">212</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-card">
+      <div class="footer-label" id="stat1Label">RUN RATE</div>
+      <div class="footer-value small-value" id="stat1Value">5.31</div>
+    </div>
+
+    <div class="footer-card bowler-footer">
+      <div class="bowler-identity">
+        <span class="gold-label">BOWLER</span>
+        <span class="bowler-name" id="bowlerName">J SMITH</span>
+      </div>
+      <div class="bowler-figures-centre" id="bowlerFigures">6.3 - 27 - 2</div>
+    </div>
+  </footer>
+
+  <div class="watermark">LINDSELL CC LIVE SCOREBOARD</div>
+</div>
+
+<script src="live-scoreboard-config.js"></script>
+<script>
+function safe(v,f="—"){return v===undefined||v===null||v===""?f:v}
+function setText(id,v){document.getElementById(id).textContent=safe(v)}
+function formatRate(v){if(v===undefined||v===null||v==="")return "—";const n=Number(v);return Number.isFinite(n)?n.toFixed(2):v}
+function ballsFromOvers(overs){
+  const s=String(overs??"0.0");
+  const [o,b]=s.split(".").map(Number);
+  if(!Number.isFinite(o)||!Number.isFinite(b)) return 0;
+  return o*6+b;
+}
+function runRate(runs,overs){
+  const balls=ballsFromOvers(overs);
+  return balls>0?runs/(balls/6):0;
+}
+function projectedScore(runs,overs,maxOvers){
+  const balls=ballsFromOvers(overs);
+  if(!balls||!maxOvers) return "—";
+  return Math.round((runs/balls)*(maxOvers*6));
+}
+function renderCurrentOver(values){
+  const wrap=document.getElementById("lastSix");
+  wrap.classList.remove("compact","ultra-compact");
+  wrap.innerHTML='<div class="gold-label">THIS OVER</div><div class="ball-row"></div>';
+
+  const row=wrap.querySelector(".ball-row");
+  const entries=values||[];
+
+  if(entries.length>8) wrap.classList.add("compact");
+  if(entries.length>10) wrap.classList.add("ultra-compact");
+
+  entries.forEach(raw=>{
+    const ball=document.createElement("span");
+    ball.className="ball";
+
+    const original=String(raw ?? "").trim();
+    const compact=original.replace(/\s+/g,"").toUpperCase();
+
+    if(compact==="0" || compact==="." || compact==="•"){
+      ball.textContent="•";
+    }
+    else if(compact==="W"){
+      ball.classList.add("wicket");
+      ball.textContent="W";
+    }
+    else if(/^\d*(WD|W)$/.test(compact)){
+      const m=compact.match(/^(\d*)(WD|W)$/);
+      const runs=m && m[1] ? m[1] : "1";
+      ball.classList.add("wide");
+      ball.innerHTML=
+        '<span class="extra-code">W</span>'+
+        '<span class="extra-runs">'+runs+'</span>';
+    }
+    else if(/^\d*NB$/.test(compact)){
+      const m=compact.match(/^(\d*)NB$/);
+      const runs=m && m[1] ? m[1] : "1";
+      ball.classList.add("noball");
+      ball.innerHTML=
+        '<span class="extra-code">NB</span>'+
+        '<span class="extra-runs">'+runs+'</span>';
+    }
+    else if(compact==="4" || compact==="6"){
+      ball.classList.add("boundary");
+      ball.textContent=compact;
+    }
+    else{
+      ball.textContent=original || "•";
+    }
+
+    row.appendChild(ball);
+  });
+}
+
+function fitText(el,maxSize=2.1,minSize=1.4){
+  if(!el) return;
+
+  let size=maxSize;
+  el.style.fontSize=size+"vw";
+
+  while(el.scrollWidth > el.clientWidth && size > minSize){
+    size-=0.05;
+    el.style.fontSize=size+"vw";
+  }
+}
+
+function render(){
+  const d=window.SCORE||{};
+
+  setText("homeTeam",d.homeTeam||"LINDSELL CC");
+  setText("awayTeam",d.awayTeam||"OPPOSITION CC");
+
+  setText("battingTeam",d.battingTeam);
+  setText("runs",d.runs??0);
+  setText("wickets",d.wickets??0);
+  setText("overs",d.overs??"0.0");
+
+  setText("batter1Name",d.batter1?.name);
+  setText("batter1Runs",d.batter1?.runs??0);
+  setText("batter1Balls",d.batter1?.balls??0);
+  document.getElementById("batter1Star").textContent=d.batter1?.notOut===false?"":"*";
+
+  setText("batter2Name",d.batter2?.name);
+  setText("batter2Runs",d.batter2?.runs??0);
+  setText("batter2Balls",d.batter2?.balls??0);
+  document.getElementById("batter2Star").textContent=d.batter2?.notOut===false?"":"*";
+
+  fitText(document.querySelector("#batter1Card .batter-name"));
+  fitText(document.querySelector("#batter2Card .batter-name"));
+
+  setText("bowlerName",d.bowler?.name);
+  setText("bowlerFigures",d.bowler?.figures);
+
+  renderCurrentOver(d.currentOver);
+
+  const rr=d.runRate??runRate(Number(d.runs||0),d.overs);
+
+  if(Number(d.innings)===2 && Number(d.target)>0){
+    const target=Number(d.target);
+    const runs=Number(d.runs||0);
+    const maxOvers=Number(d.maxOvers||40);
+    const ballsUsed=ballsFromOvers(d.overs);
+    const ballsRemaining=Math.max(0,maxOvers*6-ballsUsed);
+    const runsNeeded=Math.max(0,target-runs);
+    const rrr=ballsRemaining>0?runsNeeded/(ballsRemaining/6):0;
+
+    setText("stat1Label","TARGET");
+    setText("stat1Value",target);
+
+    setText("stat2Label","NEED");
+    setText("stat2Value",`${runsNeeded} FROM ${ballsRemaining}`);
+
+    setText("stat3Label","REQUIRED RATE");
+    setText("stat3Value",formatRate(d.requiredRate??rrr));
+  }else{
+    setText("stat1Label","RUN RATE");
+    setText("stat1Value",formatRate(rr));
+
+    if(d.previousInningsScore){
+      setText("stat2Label","LAST INNINGS SCORE");
+      setText("stat2Value",d.previousInningsScore);
+    }else{
+      setText("stat2Label","PROJECTED SCORE");
+      setText("stat2Value",d.projectedScore??projectedScore(Number(d.runs||0),d.overs,Number(d.maxOvers||40)));
+    }
+
+    setText("stat3Label","PARTNERSHIP");
+    setText("stat3Value",d.partnership??"—");
+  }
+}
+
+
+function fitPhoneLandscapeScoreboard(){
+  const board = document.getElementById("scoreboardRoot");
+  if(!board) return;
+
+  const isPhoneLandscape =
+    window.matchMedia("(orientation: landscape) and (max-height: 600px)").matches;
+
+  if(!isPhoneLandscape){
+    /* Desktop/tablet: preserve the original TV design exactly. */
+    board.style.transform = "";
+    board.style.left = "";
+    board.style.top = "";
+    return;
+  }
+
+  const viewport = window.visualViewport;
+  const w = viewport ? viewport.width : window.innerWidth;
+  const h = viewport ? viewport.height : window.innerHeight;
+
+  const scale = Math.min(w / 1920, h / 1080);
+
+  board.style.left = "50%";
+  board.style.top = "50%";
+  board.style.transform =
+    `translate(-50%, -50%) scale(${scale})`;
+}
+
+/* ============================================================
+   PUBLIC LIVE DATA
+   ============================================================ */
+
+const onlineCfg = window.LINDSELL_ONLINE_CONFIG || {};
+const standbyLayer = document.getElementById("standbyLayer");
+const launchLayer = document.getElementById("launchLayer");
+const waitingLayer = document.getElementById("waitingLayer");
+const waitingHomeTeam = document.getElementById("waitingHomeTeam");
+const waitingAwayTeam = document.getElementById("waitingAwayTeam");
+const waitingMeta = document.getElementById("waitingMeta");
+const completedLayer = document.getElementById("completedLayer");
+const completedFixtureMeta = document.getElementById("completedFixtureMeta");
+const completedHomeTeam = document.getElementById("completedHomeTeam");
+const completedAwayTeam = document.getElementById("completedAwayTeam");
+const completedHomeScore = document.getElementById("completedHomeScore");
+const completedAwayScore = document.getElementById("completedAwayScore");
+const completedHomeOvers = document.getElementById("completedHomeOvers");
+const completedAwayOvers = document.getElementById("completedAwayOvers");
+const completedResult = document.getElementById("completedResult");
+const scorecardButton = document.getElementById("scorecardButton");
+const rotateLayer = document.getElementById("rotateLayer");
+const scoreboardRoot = document.getElementById("scoreboardRoot");
+const launchButton = document.getElementById("launchButton");
+const playCricketButton = document.getElementById("playCricketButton");
+
+let liveAvailable = false;
+let viewerEnteredScoreboard = false;
+let lastLiveUpdatedAt = null;
+let lastPublicState = "standby";
+let lastPublicScore = null;
+
+function configReady(){
+  return onlineCfg.supabaseUrl
+    && onlineCfg.publishableKey
+    && !String(onlineCfg.supabaseUrl).startsWith("PASTE_")
+    && !String(onlineCfg.publishableKey).startsWith("PASTE_");
+}
+
+function ageHours(iso){
+  const t = Date.parse(iso || "");
+  if(!Number.isFinite(t)) return Infinity;
+  return (Date.now() - t) / 3600000;
+}
+
+function isPortraitPhone(){
+  return window.matchMedia("(orientation: portrait)").matches
+    && Math.min(window.innerWidth,window.innerHeight) < 900;
+}
+
+function showStandby(){
+  liveAvailable = false;
+  viewerEnteredScoreboard = false;
+  scoreboardRoot.hidden = true;
+  launchLayer.hidden = true;
+  waitingLayer.hidden = true;
+  completedLayer.hidden = true;
+  rotateLayer.hidden = true;
+  standbyLayer.hidden = false;
+  lastPublicState = "standby";
+  lastPublicScore = null;
+
+  if(document.fullscreenElement && document.exitFullscreen){
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+
+
+function showWaiting(score){
+  liveAvailable = false;
+  viewerEnteredScoreboard = false;
+  scoreboardRoot.hidden = true;
+  launchLayer.hidden = true;
+  rotateLayer.hidden = true;
+  standbyLayer.hidden = true;
+  completedLayer.hidden = true;
+  waitingLayer.hidden = false;
+  lastPublicState = "waiting";
+  lastPublicScore = score;
+
+  const home = score?.homeTeam || "LINDSELL CC";
+  const away = score?.awayTeam || "OPPOSITION CC";
+  waitingHomeTeam.textContent = home;
+  waitingAwayTeam.textContent = away;
+
+  const bits = [];
+  if(score?.matchDate) bits.push(score.matchDate);
+  if(score?.matchTime) bits.push(score.matchTime);
+  waitingMeta.textContent = bits.join(" • ");
+
+  if(document.fullscreenElement && document.exitFullscreen){
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+
+
+function showCompleted(score){
+  liveAvailable = false;
+  viewerEnteredScoreboard = false;
+
+  scoreboardRoot.hidden = true;
+  launchLayer.hidden = true;
+  waitingLayer.hidden = true;
+  rotateLayer.hidden = true;
+  standbyLayer.hidden = true;
+  completedLayer.hidden = false;
+
+  completedHomeTeam.textContent = score?.homeTeam || "HOME";
+  completedAwayTeam.textContent = score?.awayTeam || "AWAY";
+  completedHomeScore.textContent = score?.homeScore || "—";
+  completedAwayScore.textContent = score?.awayScore || "—";
+  completedHomeOvers.textContent = score?.homeOvers ? `${score.homeOvers} OVERS` : "";
+  completedAwayOvers.textContent = score?.awayOvers ? `${score.awayOvers} OVERS` : "";
+  completedResult.textContent = score?.resultDescription || "Result available";
+
+  const bits = [];
+  if(score?.matchDate) bits.push(score.matchDate);
+  if(score?.matchTime) bits.push(score.matchTime);
+  completedFixtureMeta.textContent = bits.join(" • ");
+
+  scorecardButton.dataset.url =
+    score?.scorecardUrl ||
+    (score?.fixtureId
+      ? `https://lindsell.play-cricket.com/website/results/${score.fixtureId}`
+      : "");
+
+  lastPublicState = "completed";
+  lastPublicScore = score;
+
+  if(document.fullscreenElement && document.exitFullscreen){
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+
+function showLiveReady(){
+  liveAvailable = true;
+  standbyLayer.hidden = true;
+  waitingLayer.hidden = true;
+  completedLayer.hidden = true;
+  lastPublicState = "live";
+
+  if(viewerEnteredScoreboard){
+    scoreboardRoot.hidden = false;
+    launchLayer.hidden = true;
+    rotateLayer.hidden = !isPortraitPhone();
+  }else{
+    scoreboardRoot.hidden = true;
+    rotateLayer.hidden = true;
+    launchLayer.hidden = false;
+  }
+}
+
+async function enterScoreboard(){
+  viewerEnteredScoreboard = true;
+
+  try{
+    if(document.documentElement.requestFullscreen && !document.fullscreenElement){
+      await document.documentElement.requestFullscreen();
+    }
+  }catch(_){}
+
+  try{
+    if(screen.orientation && screen.orientation.lock){
+      await screen.orientation.lock("landscape");
+    }
+  }catch(_){}
+
+  launchLayer.hidden = true;
+  scoreboardRoot.hidden = false;
+  rotateLayer.hidden = !isPortraitPhone();
+  requestAnimationFrame(fitPhoneLandscapeScoreboard);
+}
+
+function updateOrientationOverlay(){
+  if(!liveAvailable || !viewerEnteredScoreboard){
+    rotateLayer.hidden = true;
+    return;
+  }
+  rotateLayer.hidden = !isPortraitPhone();
+}
+
+async function fetchLiveScore(){
+  if(!configReady()){
+    showStandby();
+    return;
+  }
+
+  const base = String(onlineCfg.supabaseUrl).replace(/\/$/,"");
+  const rowId = Number(onlineCfg.rowId || 1);
+  const url = `${base}/rest/v1/live_scoreboard?id=eq.${rowId}&select=score,updated_at,fixture_id`;
+
+  try{
+    const response = await fetch(url,{
+      method:"GET",
+      cache:"no-store",
+      headers:{
+        "apikey":onlineCfg.publishableKey,
+        "Accept":"application/json"
+      }
+    });
+
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const rows = await response.json();
+    const row = Array.isArray(rows) ? rows[0] : null;
+    const staleAfter = Number(onlineCfg.staleAfterHours || 4);
+
+    if(!row || !row.score || ageHours(row.updated_at) >= staleAfter){
+      showStandby();
+      return;
+    }
+
+    const state = String(row.score?.state || "live").toLowerCase();
+
+    if(state === "waiting"){
+      lastLiveUpdatedAt = row.updated_at;
+      showWaiting(row.score);
+      return;
+    }
+
+    if(state === "completed"){
+      lastLiveUpdatedAt = row.updated_at;
+      showCompleted(row.score);
+      return;
+    }
+
+    window.SCORE = row.score;
+    lastPublicScore = row.score;
+    lastLiveUpdatedAt = row.updated_at;
+    render();
+    showLiveReady();
+  }catch(_){
+    /*
+      A short network failure must not throw somebody out of a live match.
+      Keep the last successful score until its four-hour freshness window expires.
+    */
+    if(lastLiveUpdatedAt && ageHours(lastLiveUpdatedAt) < Number(onlineCfg.staleAfterHours || 4)){
+      if(lastPublicState === "completed" && lastPublicScore){
+        showCompleted(lastPublicScore);
+      }else if(lastPublicState === "waiting" && lastPublicScore){
+        showWaiting(lastPublicScore);
+      }else{
+        showLiveReady();
+      }
+    }else{
+      showStandby();
+    }
+  }
+}
+
+launchButton.addEventListener("click",enterScoreboard);
+playCricketButton.addEventListener("click",()=>{
+  window.top.location.href = onlineCfg.playCricketUrl || "fixtures.html";
+});
+scorecardButton.addEventListener("click",()=>{
+  const url = scorecardButton.dataset.url;
+  if(url) window.top.location.href = url;
+});
+window.addEventListener("resize",()=>{
+  updateOrientationOverlay();
+  fitPhoneLandscapeScoreboard();
+});
+window.addEventListener("orientationchange",()=>{
+  setTimeout(()=>{
+    updateOrientationOverlay();
+    fitPhoneLandscapeScoreboard();
+  },250);
+});
+
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize",fitPhoneLandscapeScoreboard);
+}
+fitPhoneLandscapeScoreboard();
+fetchLiveScore();
+setInterval(fetchLiveScore,Math.max(2,Number(onlineCfg.pollSeconds || 3))*1000);
+
+</script>
+</body>
+</html>
