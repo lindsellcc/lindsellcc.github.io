@@ -1031,7 +1031,7 @@ body{display:flex;align-items:center;justify-content:center}
       match is being live scored.
     </p>
     <button class="public-button gold" id="playCricketButton" type="button">
-      VIEW FIXTURES &amp; RESULTS
+      VIEW FIXTURES &amp; RESULTS ON PLAY-CRICKET
     </button>
     <div class="public-small">Live scores remain available through breaks and delays.</div>
   </div>
@@ -1048,7 +1048,7 @@ body{display:flex;align-items:center;justify-content:center}
     </div>
     <h1 class="public-title waiting-title">PLAY WAITING TO COMMENCE</h1>
     <p class="public-copy">
-      Tonight's fixture has been connected. The live scoreboard will appear
+      This fixture has been connected. The live scoreboard will appear
       automatically as soon as scoring begins.
     </p>
     <div class="waiting-meta" id="waitingMeta"></div>
@@ -1449,6 +1449,119 @@ function showWaiting(score){
 }
 
 
+
+function parseCompletedScore(scoreText){
+  const s=String(scoreText||"").trim();
+  const runsMatch=s.match(/^(\d+)/);
+  if(!runsMatch) return null;
+
+  const runs=Number(runsMatch[1]);
+  const wicketsMatch=s.match(/\/(\d+)/);
+  let wickets=null;
+
+  if(wicketsMatch){
+    wickets=Number(wicketsMatch[1]);
+  }else if(/all out/i.test(s)){
+    wickets=10;
+  }
+
+  return {runs,wickets};
+}
+
+function cleanCompletedTeamName(name){
+  return String(name||"")
+    .replace(/\s*-\s*/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function completedResultFromMatchData(match){
+  const original=String(match?.result_description||"").trim();
+  const status=original.toLowerCase();
+
+  if(!original) return "";
+  if(
+    status.includes("match in progress") ||
+    status.includes("cancelled") ||
+    status.includes("canceled") ||
+    status.includes("abandoned") ||
+    status.includes("no result") ||
+    status.includes("tied") ||
+    status.includes("tie")
+  ){
+    return original;
+  }
+
+  if(!Array.isArray(match?.innings) || match.innings.length < 2){
+    return original;
+  }
+
+  const byTeam={};
+  match.innings.forEach(i=>{
+    byTeam[i.team_name]=parseCompletedScore(i.score);
+  });
+
+  const home=byTeam[match.home_name];
+  const away=byTeam[match.away_name];
+  if(!home || !away) return original;
+
+  const homeWon=home.runs>away.runs;
+  const awayWon=away.runs>home.runs;
+  if(!homeWon && !awayWon) return original;
+
+  const winnerRaw=homeWon?match.home_name:match.away_name;
+  const winnerName=cleanCompletedTeamName(winnerRaw);
+  const secondInningsTeam=match.innings[1]?.team_name;
+  const winnerBattedSecond=secondInningsTeam===winnerRaw;
+
+  if(winnerBattedSecond){
+    const winnerScore=homeWon?home:away;
+    if(winnerScore.wickets!==null){
+      const wicketsRemaining=Math.max(0,10-winnerScore.wickets);
+      if(wicketsRemaining>0){
+        return `${winnerName} won by ${wicketsRemaining} wicket${wicketsRemaining===1?"":"s"}`;
+      }
+    }
+  }
+
+  const margin=Math.abs(home.runs-away.runs);
+  if(margin>0){
+    return `${winnerName} won by ${margin} run${margin===1?"":"s"}`;
+  }
+
+  return original;
+}
+
+async function upgradeCompletedResult(score){
+  if(!score?.fixtureId) return;
+
+  try{
+    const response=await fetch(`assets/data/matches.json?v=${Date.now()}`,{cache:"no-store"});
+    if(!response.ok) return;
+
+    const data=await response.json();
+    const allMatches=[
+      data?.latest_result,
+      ...(Array.isArray(data?.recent_results)?data.recent_results:[])
+    ].filter(Boolean);
+
+    const match=allMatches.find(m=>String(m.id)===String(score.fixtureId));
+    if(!match) return;
+
+    const better=completedResultFromMatchData(match);
+    if(
+      better &&
+      lastPublicState==="completed" &&
+      lastPublicScore &&
+      String(lastPublicScore.fixtureId)===String(score.fixtureId)
+    ){
+      completedResult.textContent=better;
+    }
+  }catch(e){
+    // Keep the original bridge result if the public match-data snapshot is unavailable.
+  }
+}
+
 function showCompleted(score){
   liveAvailable = false;
   viewerEnteredScoreboard = false;
@@ -1481,6 +1594,10 @@ function showCompleted(score){
 
   lastPublicState = "completed";
   lastPublicScore = score;
+
+  // Match the Fixtures & Results page wording where public Play-Cricket
+  // match data is available (e.g. "won by 5 runs" / "won by 3 wickets").
+  upgradeCompletedResult(score);
 
   if(document.fullscreenElement && document.exitFullscreen){
     document.exitFullscreen().catch(()=>{});
