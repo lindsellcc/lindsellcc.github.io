@@ -748,6 +748,14 @@ img{
   margin-top:5px;
 }
 
+.sponsor-cta{
+  align-items:start;
+}
+
+.sponsor-cta > div{
+  padding-top:20px;
+}
+
 /* =========================
    WEBSITE v1.3 — CLUB / CONTACT / SPONSORS
    ========================= */
