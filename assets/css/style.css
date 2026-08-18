@@ -813,32 +813,14 @@ img{
 
 
 /* =========================
-   TABLET / SMALL DESKTOP
+   WEBSITE v1.3.12 — LIVE SCORE DESKTOP RESTORE
    ========================= */
 
-@media(max-width:900px){
-
-  .nav{
-    display:none;
-    position:absolute;
-    left:0;
-    right:0;
-    top:78px;
-    background:#fff;
-    padding:18px 16px;
-    border-bottom:1px solid var(--line);
-    flex-direction:column;
-    align-items:flex-start
-  }
-
-  .nav.open{
-    display:flex
-  }
-
-/* =========================
-   WEBSITE v1.2 — INTEGRATED LIVE SCORE
-   ========================= */
-
+/*
+  These rules must remain global. They previously sat inside the <=900px
+  media query, which meant desktop browsers fell back to the iframe's
+  default small dimensions.
+*/
 .live-page-hero{
   padding-bottom:42px;
 }
@@ -893,7 +875,6 @@ img{
 }
 
 @media(max-width:760px){
-
   .live-score-toolbar{
     align-items:flex-start;
     flex-direction:column;
@@ -902,8 +883,30 @@ img{
   .live-score-frame-shell{
     border-radius:12px;
   }
-
 }
+
+/* =========================
+   TABLET / SMALL DESKTOP
+   ========================= */
+
+@media(max-width:900px){
+
+  .nav{
+    display:none;
+    position:absolute;
+    left:0;
+    right:0;
+    top:78px;
+    background:#fff;
+    padding:18px 16px;
+    border-bottom:1px solid var(--line);
+    flex-direction:column;
+    align-items:flex-start
+  }
+
+  .nav.open{
+    display:flex
+  }
 
   .menu-btn{
     display:block
