@@ -400,6 +400,11 @@ img{
   object-fit:cover
 }
 
+.club-intro-title{
+  font-size:48px;
+  margin:8px 0 16px
+}
+
 
 /* =========================
    QUICK LINKS
@@ -830,101 +835,6 @@ img{
     display:flex
   }
 
-  .menu-btn{
-    display:block
-  }
-
-  .cards,
-  .quick-links{
-    grid-template-columns:1fr 1fr
-  }
-
-  .split,
-  .score-strip{
-    grid-template-columns:1fr
-  }
-
-  .gallery{
-    grid-template-columns:1fr 1fr
-  }
-
-  .gallery .wide{
-    grid-column:span 1
-  }
-
-  .footer-grid{
-    grid-template-columns:1fr
-  }
-
-  .contact-layout{
-    grid-template-columns:1fr
-  }
-
-  .sponsor-grid{
-    grid-template-columns:1fr
-  }
-
-  .map-card,
-  .map-card iframe{
-    min-height:380px
-  }
-}
-
-
-/* =========================
-   MOBILE
-   ========================= */
-
-@media(max-width:760px){
-
-  .match-grid{
-    grid-template-columns:1fr
-  }
-
-  .home-live-banner.visible{
-    display:block
-  }
-
-  .home-live-banner .actions{
-    margin-top:14px
-  }
-
-  .fixture-row{
-    grid-template-columns:1fr
-  }
-}
-
-@media(max-width:620px){
-
-  .cards,
-  .quick-links,
-  .gallery{
-    grid-template-columns:1fr
-  }
-
-  .gallery .tall,
-  .gallery .wide{
-    grid-row:auto;
-    grid-column:auto
-  }
-
-  .hero{
-    min-height:66vh
-  }
-
-  .hero-inner{
-    padding:90px 0 48px
-  }
-
-  .brand-text span{
-    display:none
-  }
-}
-
-.sponsor-card .btn{
-  align-self:center;
-}
-
 /* =========================
    WEBSITE v1.2 — INTEGRATED LIVE SCORE
    ========================= */
@@ -993,4 +903,182 @@ img{
     border-radius:12px;
   }
 
+}
+
+  .menu-btn{
+    display:block
+  }
+
+  .cards,
+  .quick-links{
+    grid-template-columns:1fr 1fr
+  }
+
+  .split,
+  .score-strip{
+    grid-template-columns:1fr
+  }
+
+  .gallery{
+    grid-template-columns:1fr 1fr
+  }
+
+  .gallery .wide{
+    grid-column:span 1
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr
+  }
+
+  .contact-layout{
+    grid-template-columns:1fr
+  }
+
+  .sponsor-grid{
+    grid-template-columns:1fr
+  }
+
+  .map-card,
+  .map-card iframe{
+    min-height:380px
+  }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media(max-width:760px){
+
+  .match-grid{
+    grid-template-columns:1fr
+  }
+
+  .home-live-banner.visible{
+    display:block
+  }
+
+  .home-live-banner .actions{
+    margin-top:14px
+  }
+
+  .fixture-row{
+    grid-template-columns:1fr
+  }
+}
+
+@media(max-width:620px){
+
+  /* Homepage mobile layout: keep key headings intentional and easy to scan. */
+  .home-page .section{
+    padding:52px 0
+  }
+
+  .home-page .hero h1{
+    font-size:clamp(27px,7.4vw,34px);
+    line-height:1;
+    white-space:nowrap
+  }
+
+  .home-page .hero .actions{
+    display:grid;
+    grid-template-columns:1fr;
+    width:100%;
+    max-width:340px
+  }
+
+  .home-page .hero .actions .btn{
+    display:block;
+    width:100%;
+    text-align:center
+  }
+
+  .home-page .section-title{
+    display:block;
+    margin-bottom:24px
+  }
+
+  .home-page .section-title h2{
+    font-size:clamp(25px,7.5vw,30px);
+    line-height:1.08;
+    white-space:nowrap;
+    margin-top:5px
+  }
+
+  .home-page .section-title p{
+    max-width:none;
+    margin-top:12px;
+    line-height:1.5
+  }
+
+  .home-page .section-title .kicker{
+    white-space:nowrap
+  }
+
+  .home-page .around-club-title h2{
+    font-size:clamp(20px,6vw,28px)
+  }
+
+  .home-page .club-intro-title{
+    font-size:clamp(32px,10vw,42px);
+    line-height:1.05
+  }
+
+  .home-page .menu-btn{
+    width:44px;
+    height:44px;
+    padding:0;
+    display:grid;
+    place-items:center;
+    cursor:pointer
+  }
+
+  .cards,
+  .quick-links,
+  .gallery{
+    grid-template-columns:1fr
+  }
+
+  .gallery .tall,
+  .gallery .wide{
+    grid-row:auto;
+    grid-column:auto
+  }
+
+  .hero{
+    min-height:66vh
+  }
+
+  .hero-inner{
+    padding:90px 0 48px
+  }
+
+  .brand-text span{
+    display:none
+  }
+}
+
+.sponsor-card .btn{
+  align-self:center;
+}
+@media(max-width:380px){
+
+  .home-page .header-inner{
+    gap:8px
+  }
+
+  .home-page .brand{
+    gap:8px
+  }
+
+  .home-page .brand img{
+    width:48px;
+    height:48px
+  }
+
+  .home-page .brand-text strong{
+    font-size:17px
+  }
 }
