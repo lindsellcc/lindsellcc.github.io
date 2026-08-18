@@ -475,10 +475,6 @@ img{
   padding:0
 }
 
-.page-hero .container{
-  width:100%
-}
-
 .page-hero h1{
   font-size:clamp(40px,7vw,68px);
   margin:0 0 8px
@@ -1313,3 +1309,8 @@ img{
   }
 }
 
+/* =========================
+   WEBSITE v1.3.17 — PAGE HERO CONTENT ALIGNMENT
+   Restores the standard centred .container width inside inner-page heroes
+   while retaining the consistent v1.3.16 banner heights.
+   ========================= */
