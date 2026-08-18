@@ -127,7 +127,8 @@
     const rec=document.querySelector("[data-results-list]");
 const row = m => {
 
-  let matchTitle = fixtureName(m);
+  let homeLabel = m.home_name || "Home";
+  let awayLabel = m.away_name || "Away";
   let resultLine = "";
 
   if (m.result_description && Array.isArray(m.innings) && m.innings.length) {
@@ -141,10 +142,8 @@ const row = m => {
     const homeScore = scores[m.home_name] || "";
     const awayScore = scores[m.away_name] || "";
 
-    matchTitle =
-      `${m.home_name}${homeScore ? " " + homeScore : ""}` +
-      ` v ` +
-      `${m.away_name}${awayScore ? " " + awayScore : ""}`;
+    homeLabel = `${m.home_name}${homeScore ? " " + homeScore : ""}`;
+    awayLabel = `${m.away_name}${awayScore ? " " + awayScore : ""}`;
 
     resultLine = cricketResultLine(m);
   }
@@ -159,7 +158,7 @@ const row = m => {
       <div>
 
         <div class="fixture-teams">
-          ${esc(matchTitle)}
+          <span class="fixture-home-team">${esc(homeLabel)}</span> <span class="fixture-versus">v</span> <span class="fixture-away-team">${esc(awayLabel)}</span>
         </div>
 
         ${
