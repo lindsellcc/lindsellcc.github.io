@@ -469,7 +469,14 @@ img{
 .page-hero{
   background:var(--green-dark);
   color:#fff;
-  padding:70px 0 50px
+  min-height:220px;
+  display:flex;
+  align-items:center;
+  padding:0
+}
+
+.page-hero .container{
+  width:100%
 }
 
 .page-hero h1{
@@ -821,10 +828,6 @@ img{
   media query, which meant desktop browsers fell back to the iframe's
   default small dimensions.
 */
-.live-page-hero{
-  padding-bottom:42px;
-}
-
 .live-score-section{
   padding-top:42px;
 }
@@ -1115,7 +1118,8 @@ img{
   }
 
   .fixtures-page .page-hero{
-    padding:52px 0 38px
+    min-height:170px;
+    padding:0
   }
 
   .fixtures-page .page-hero h1{
@@ -1296,3 +1300,16 @@ img{
     font-size:17px
   }
 }
+
+/* =========================
+   WEBSITE v1.3.16 — CONSISTENT INNER PAGE BANNERS
+   ========================= */
+
+@media(max-width:620px){
+  .page-hero,
+  .fixtures-page .page-hero{
+    min-height:170px;
+    padding:0
+  }
+}
+
