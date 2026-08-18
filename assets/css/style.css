@@ -1031,8 +1031,9 @@ img{
   }
 
   .home-page .club-intro-title{
-    font-size:clamp(32px,10vw,42px);
-    line-height:1.05
+    font-size:clamp(24px,7vw,30px);
+    line-height:1.05;
+    white-space:nowrap
   }
 
   .home-page .menu-btn{
