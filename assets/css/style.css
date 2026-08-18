@@ -1225,3 +1225,74 @@ img{
     display:block
   }
 }
+
+
+/* =========================
+   WEBSITE v1.3.14 — LIVE SCORE MOBILE ALIGNMENT
+   ========================= */
+
+@media(max-width:620px){
+  .live-page .live-score-section{
+    padding-top:34px;
+    padding-bottom:52px
+  }
+
+  .live-page .live-score-toolbar{
+    width:100%;
+    gap:14px;
+    margin-bottom:14px
+  }
+
+  .live-page .live-score-toolbar h2{
+    font-size:clamp(25px,7.5vw,30px);
+    line-height:1.08
+  }
+
+  .live-page .live-score-toolbar .btn{
+    margin:0;
+    align-self:flex-start
+  }
+
+  .live-page .live-score-frame-shell{
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+    aspect-ratio:16 / 9;
+    border-radius:10px;
+    box-shadow:0 10px 28px rgba(0,0,0,.10)
+  }
+
+  .live-page .live-page-note{
+    margin-top:12px;
+    padding:12px 13px;
+    line-height:1.45
+  }
+
+  .live-page .menu-btn{
+    width:44px;
+    height:44px;
+    padding:0;
+    display:grid;
+    place-items:center;
+    cursor:pointer
+  }
+}
+
+@media(max-width:380px){
+  .live-page .header-inner{
+    gap:8px
+  }
+
+  .live-page .brand{
+    gap:8px
+  }
+
+  .live-page .brand img{
+    width:48px;
+    height:48px
+  }
+
+  .live-page .brand-text strong{
+    font-size:17px
+  }
+}
