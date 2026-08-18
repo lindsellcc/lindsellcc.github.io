@@ -920,3 +920,7 @@ img{
     display:none
   }
 }
+
+.sponsor-card .btn{
+  align-self:center;
+}
