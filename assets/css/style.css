@@ -238,6 +238,23 @@ img{
 }
 
 
+/* Stacked section titles */
+
+.section-title-stacked{
+  display:block;
+  margin-bottom:28px;
+}
+
+.section-title-stacked h2{
+  margin-bottom:8px;
+}
+
+.section-title-stacked p{
+  margin:0;
+  max-width:760px;
+}
+
+
 /* =========================
    CARDS
    ========================= */
@@ -620,7 +637,7 @@ img{
 .fixture-ground{
   font-size:12px;
   color:var(--muted);
-  margin-top:4px
+  margin-top:5px
 }
 
 .fixture-row a{
@@ -629,10 +646,164 @@ img{
   font-weight:900
 }
 
+.fixture-result{
+  margin-top:5px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--green)
+}
+
 .data-note{
   font-size:12px;
   color:var(--muted);
   margin-top:14px
+}
+
+
+/* =========================
+   SPONSOR CTA
+   ========================= */
+
+.sponsor-cta{
+  align-items:start;
+}
+
+.sponsor-cta > div{
+  padding-top:20px;
+}
+
+
+/* =========================
+   WEBSITE v1.3
+   CLUB / CONTACT / SPONSORS
+   ========================= */
+
+.contact-layout{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:36px;
+  align-items:start
+}
+
+.contact-list{
+  display:grid;
+  gap:12px;
+  margin-top:24px
+}
+
+.contact-item{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 18px;
+  background:#fff
+}
+
+.contact-label{
+  font-size:11px;
+  color:var(--gold);
+  font-weight:900;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  margin-bottom:6px
+}
+
+.contact-item a{
+  color:var(--green);
+  font-weight:900;
+  text-decoration:none
+}
+
+.social-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px
+}
+
+.social-links a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 13px;
+  border-radius:999px;
+  background:var(--green-dark);
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:900
+}
+
+.map-card{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:18px;
+  min-height:480px;
+  background:#e8ece9;
+  box-shadow:0 18px 45px rgba(0,0,0,.08)
+}
+
+.map-card iframe{
+  display:block;
+  width:100%;
+  min-height:480px;
+  height:100%;
+  border:0
+}
+
+.sponsor-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px
+}
+
+.sponsor-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-height:270px
+}
+
+.sponsor-name{
+  font-size:26px;
+  font-weight:950;
+  line-height:1.05;
+  color:var(--green-dark)
+}
+
+.sponsor-card p{
+  color:var(--muted);
+  line-height:1.55;
+  flex:1
+}
+
+
+/* =========================
+   WEBSITE v1.3.1
+   SPONSOR LOGOS
+   ========================= */
+
+.sponsor-logo{
+  width:100%;
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+  padding:6px 10px;
+  border-bottom:1px solid var(--line)
+}
+
+.sponsor-logo img{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:220px;
+  max-height:130px;
+  object-fit:contain
 }
 
 
@@ -683,6 +854,19 @@ img{
 
   .footer-grid{
     grid-template-columns:1fr
+  }
+
+  .contact-layout{
+    grid-template-columns:1fr
+  }
+
+  .sponsor-grid{
+    grid-template-columns:1fr
+  }
+
+  .map-card,
+  .map-card iframe{
+    min-height:380px
   }
 }
 
@@ -735,85 +919,4 @@ img{
   .brand-text span{
     display:none
   }
-}
-
-.fixture-result{
-  margin-top:5px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--green);
-}
-
-.fixture-ground{
-  margin-top:5px;
-}
-
-.sponsor-cta{
-  align-items:start;
-}
-
-.sponsor-cta > div{
-  padding-top:20px;
-}
-
-/* =========================
-   WEBSITE v1.3 — CLUB / CONTACT / SPONSORS
-   ========================= */
-.contact-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:start}
-.contact-list{display:grid;gap:12px;margin-top:24px}
-.contact-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff}
-.contact-label{font-size:11px;color:var(--gold);font-weight:900;letter-spacing:.11em;text-transform:uppercase;margin-bottom:6px}
-.contact-item a{color:var(--green);font-weight:900;text-decoration:none}
-.social-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.social-links a{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border-radius:999px;background:var(--green-dark);color:#fff;text-decoration:none;font-size:13px;font-weight:900}
-.map-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;min-height:480px;background:#e8ece9;box-shadow:0 18px 45px rgba(0,0,0,.08)}
-.map-card iframe{display:block;width:100%;min-height:480px;height:100%;border:0}
-.sponsor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.sponsor-card{border:1px solid var(--line);border-radius:16px;padding:24px;background:#fff;display:flex;flex-direction:column;align-items:flex-start;min-height:270px}
-.sponsor-name{font-size:26px;font-weight:950;line-height:1.05;color:var(--green-dark)}
-.sponsor-card p{color:var(--muted);line-height:1.55;flex:1}
-@media(max-width:900px){.contact-layout{grid-template-columns:1fr}.sponsor-grid{grid-template-columns:1fr}.map-card,.map-card iframe{min-height:380px}}
-
-
-/* =========================
-   WEBSITE v1.3.1 — SPONSOR LOGOS
-   ========================= */
-
-.sponsor-logo{
-  width:100%;
-  height:120px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:20px;
-  padding:6px 10px;
-  border-bottom:1px solid var(--line);
-}
-
-.sponsor-logo img{
-  display:block;
-  max-width:100%;
-  max-height:100px;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-}
-
-/* Sponsor logo alignment */
-.sponsor-logo {
-  height: 150px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 22px;
-}
-
-.sponsor-logo img {
-  width: auto;
-  height: auto;
-  max-width: 220px;
-  max-height: 130px;
-  object-fit: contain;
-  display: block;
 }
