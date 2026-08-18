@@ -3,9 +3,221 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Official website of Lindsell Cricket Club">
-<title>Contact | Lindsell Cricket Club</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<meta name="description" content="Contact Lindsell Cricket Club and find our ground in Churchend, rural Essex.">
+<title>Contact & Find Us | Lindsell Cricket Club</title>
+<link rel="stylesheet" href="assets/css/style.css?v=1.3.2">
+
+<style>
+/* Website v1.3.2 — Contact & Find Us page */
+.contact-intro{
+  max-width:760px;
+}
+
+.contact-main{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:34px;
+  align-items:start;
+}
+
+.contact-heading{
+  margin:8px 0 10px;
+  font-size:clamp(34px,5vw,48px);
+}
+
+.contact-lead{
+  margin:0 0 24px;
+  max-width:640px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.6;
+}
+
+.contact-detail-grid{
+  display:grid;
+  gap:12px;
+}
+
+.contact-detail{
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:14px;
+  align-items:start;
+  padding:17px 18px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+
+.contact-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  background:var(--cream);
+  color:var(--green-dark);
+  font-size:20px;
+  font-weight:900;
+}
+
+.contact-detail-label{
+  margin-bottom:4px;
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+.contact-detail-value{
+  color:var(--ink);
+  line-height:1.45;
+}
+
+.contact-detail-value a{
+  color:var(--green);
+  font-weight:900;
+  text-decoration:none;
+}
+
+.contact-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.contact-actions .btn{
+  margin:0;
+}
+
+.contact-map-wrap{
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#e8ece9;
+  box-shadow:0 18px 45px rgba(0,0,0,.08);
+}
+
+.contact-map-wrap iframe{
+  display:block;
+  width:100%;
+  height:500px;
+  border:0;
+}
+
+.contact-map-footer{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:center;
+  padding:15px 17px;
+  background:#fff;
+}
+
+.contact-map-footer strong{
+  display:block;
+  margin-bottom:3px;
+}
+
+.contact-map-footer span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+}
+
+.contact-map-footer a{
+  white-space:nowrap;
+}
+
+.follow-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.follow-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  text-decoration:none;
+  transition:transform .15s ease,border-color .15s ease;
+}
+
+.follow-card:hover{
+  transform:translateY(-2px);
+  border-color:#b9c8bd;
+}
+
+.follow-card strong{
+  display:block;
+  font-size:18px;
+}
+
+.follow-card span{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.follow-arrow{
+  color:var(--green);
+  font-size:22px;
+  font-weight:900;
+}
+
+.contact-quick-links{
+  margin-top:24px;
+}
+
+@media(max-width:900px){
+  .contact-main{
+    grid-template-columns:1fr;
+  }
+
+  .follow-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:620px){
+  .contact-detail{
+    grid-template-columns:38px 1fr;
+    padding:14px;
+  }
+
+  .contact-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    font-size:17px;
+  }
+
+  .contact-map-wrap iframe{
+    height:360px;
+  }
+
+  .contact-map-footer{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .contact-map-footer a{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -27,53 +239,129 @@
   </div>
 </header>
 
-
 <section class="page-hero">
-  <div class="container">
+  <div class="container contact-intro">
     <div class="kicker">Get in touch</div>
     <h1>Contact & Find Us</h1>
-    <p>Visiting Lindsell, looking for a fixture, or want to get in touch with the club?</p>
+    <p>Visiting Lindsell, coming to watch a match, or want to get in touch with the club? Everything you need is here.</p>
   </div>
 </section>
 
 <section class="section">
-  <div class="container contact-layout">
+  <div class="container contact-main">
+
     <div>
       <div class="kicker" style="color:var(--gold)">Contact</div>
-      <h2 style="font-size:44px;margin:8px 0 18px">Lindsell Cricket Club</h2>
-      <div class="contact-list">
-        <div class="contact-item"><div class="contact-label">Email</div><a href="mailto:lindsell.cc@gmail.com">lindsell.cc@gmail.com</a></div>
-        <div class="contact-item"><div class="contact-label">Ground</div><div>Lindsell Cricket Club, Gallows Green Rd, Churchend, Lindsell, Dunmow CM6 3QR</div></div>
-        <div class="contact-item"><div class="contact-label">what3words</div><a href="https://what3words.com/edicts.tramps.tearfully" target="_blank" rel="noopener">///edicts.tramps.tearfully</a></div>
+      <h2 class="contact-heading">Lindsell Cricket Club</h2>
+      <p class="contact-lead">
+        We are based in Churchend, Lindsell, in the rural Essex countryside. For club enquiries, visiting information or anything else, email us or use the location details below.
+      </p>
+
+      <div class="contact-detail-grid">
+
+        <div class="contact-detail">
+          <div class="contact-icon">@</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">
+              <a href="mailto:lindsell.cc@gmail.com">lindsell.cc@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">⌖</div>
+          <div>
+            <div class="contact-detail-label">Ground</div>
+            <div class="contact-detail-value">
+              Lindsell Cricket Club<br>
+              Gallows Green Rd, Churchend<br>
+              Lindsell, Dunmow CM6 3QR
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon">///</div>
+          <div>
+            <div class="contact-detail-label">what3words</div>
+            <div class="contact-detail-value">
+              <a href="https://what3words.com/edicts.tramps.tearfully" target="_blank" rel="noopener">///edicts.tramps.tearfully</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="actions">
-        <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination=Lindsell%20Cricket%20Club%2C%20Gallows%20Green%20Rd%2C%20Churchend%2C%20Lindsell%2C%20Dunmow%20CM6%203QR" target="_blank" rel="noopener">Get directions</a>
-        <a class="btn" style="border:1px solid var(--line)" href="mailto:lindsell.cc@gmail.com">Email the club</a>
-      </div>
-      <div class="social-links">
-        <a href="https://www.instagram.com/lindsellcc/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://x.com/LindsellCC" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="https://www.facebook.com/p/Lindsell-CC-61557502583913/" target="_blank" rel="noopener">Facebook</a>
+
+      <div class="contact-actions">
+        <a class="btn primary"
+           href="https://www.google.com/maps/dir/?api=1&destination=Lindsell%20Cricket%20Club%2C%20Gallows%20Green%20Rd%2C%20Churchend%2C%20Lindsell%2C%20Dunmow%20CM6%203QR"
+           target="_blank" rel="noopener">Get directions</a>
+
+        <a class="btn"
+           style="border:1px solid var(--line)"
+           href="mailto:lindsell.cc@gmail.com">Email the club</a>
       </div>
     </div>
-    <div class="map-card">
-      <iframe src="https://www.google.com/maps?q=Lindsell%20Cricket%20Club%2C%20Gallows%20Green%20Rd%2C%20Churchend%2C%20Lindsell%2C%20Dunmow%20CM6%203QR&output=embed" title="Map showing Lindsell Cricket Club" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+
+    <div class="contact-map-wrap">
+      <iframe
+        src="https://www.google.com/maps?q=Lindsell%20Cricket%20Club%2C%20Gallows%20Green%20Rd%2C%20Churchend%2C%20Lindsell%2C%20Dunmow%20CM6%203QR&output=embed"
+        title="Map showing Lindsell Cricket Club"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+
+      <div class="contact-map-footer">
+        <div>
+          <strong>Lindsell Cricket Club</strong>
+          <span>Gallows Green Rd, Churchend, Lindsell, Dunmow CM6 3QR</span>
+        </div>
+        <a class="btn primary"
+           href="https://www.google.com/maps/dir/?api=1&destination=Lindsell%20Cricket%20Club%2C%20Gallows%20Green%20Rd%2C%20Churchend%2C%20Lindsell%2C%20Dunmow%20CM6%203QR"
+           target="_blank" rel="noopener">Directions</a>
+      </div>
     </div>
+
   </div>
 </section>
 
 <section class="section alt">
   <div class="container">
-    <div class="section-title">
-      <div><div class="kicker" style="color:var(--gold)">Useful links</div><h2>Cricket & club links</h2></div>
-      <p>For fixtures, results, live scoring and the club shop.</p>
+
+    <div class="section-title section-title-stacked">
+      <div>
+        <div class="kicker" style="color:var(--gold)">Follow the club</div>
+        <h2>Keep up with Lindsell CC</h2>
+        <p>Follow the club for match days, social events and everything happening around Lindsell.</p>
+      </div>
     </div>
-    <div class="quick-links">
+
+    <div class="follow-grid">
+      <a class="follow-card" href="https://www.instagram.com/lindsellcc/" target="_blank" rel="noopener">
+        <div><strong>Instagram</strong><span>@lindsellcc</span></div>
+        <div class="follow-arrow">→</div>
+      </a>
+
+      <a class="follow-card" href="https://www.facebook.com/p/Lindsell-CC-61557502583913/" target="_blank" rel="noopener">
+        <div><strong>Facebook</strong><span>Lindsell CC</span></div>
+        <div class="follow-arrow">→</div>
+      </a>
+
+      <a class="follow-card" href="https://x.com/LindsellCC" target="_blank" rel="noopener">
+        <div><strong>X / Twitter</strong><span>@LindsellCC</span></div>
+        <div class="follow-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="quick-links contact-quick-links">
       <a href="fixtures.html">Fixtures & Results<span>Upcoming matches and recent results</span></a>
       <a href="live.html">Live Score<span>Follow Lindsell live when scoring is active</span></a>
       <a href="https://lindsell.play-cricket.com/" target="_blank" rel="noopener">Play-Cricket<span>Scorecards, stats and player records</span></a>
       <a href="https://lindsell-cc.square.site/" target="_blank" rel="noopener">Club Shop<span>Products and club purchases</span></a>
     </div>
+
   </div>
 </section>
 
@@ -85,6 +373,7 @@
   </div>
   <div class="container small" style="margin-top:28px">© 2026 Lindsell Cricket Club</div>
 </footer>
-<script src="assets/js/site.js"></script>
+<script src="assets/js/site.js?v=1.3.2"></script>
+
 </body>
 </html>
