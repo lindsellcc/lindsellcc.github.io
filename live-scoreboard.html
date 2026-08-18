@@ -490,6 +490,64 @@ body{display:flex;align-items:center;justify-content:center}
 }
 
 
+
+
+/* ===== WEBSITE v1.3.14 EMBEDDED MOBILE PANEL FIT =====
+   The website embeds this 16:9 scoreboard in a shallow iframe on phones.
+   Compact only the public standby / waiting / completed panels when embedded;
+   the full-screen scoreboard and TV layout are unchanged.
+*/
+@media (max-height:420px) {
+  html.embedded-scoreboard .public-layer{
+    padding:5px 8px;
+  }
+
+  html.embedded-scoreboard .public-panel{
+    width:min(96vw,720px);
+    max-height:calc(100vh - 10px);
+    padding:8px 14px 9px;
+    border-top-width:2px;
+    box-shadow:0 8px 28px rgba(0,0,0,.28);
+  }
+
+  html.embedded-scoreboard .public-eyebrow{
+    font-size:clamp(8px,4vh,11px);
+    letter-spacing:.13em;
+    margin-bottom:4px;
+  }
+
+  html.embedded-scoreboard .public-title{
+    font-size:clamp(18px,11vh,32px);
+    line-height:.96;
+  }
+
+  html.embedded-scoreboard .public-copy{
+    max-width:92%;
+    margin-top:5px;
+    font-size:clamp(9px,5vh,12px);
+    line-height:1.24;
+  }
+
+  html.embedded-scoreboard .public-button{
+    margin-top:7px;
+    padding:6px 11px;
+    border-radius:3px;
+    font-size:clamp(9px,4.6vh,12px);
+    letter-spacing:.04em;
+  }
+
+  html.embedded-scoreboard .public-small{
+    margin-top:5px;
+    font-size:8px;
+    line-height:1.2;
+  }
+
+  html.embedded-scoreboard .rotate-symbol{
+    font-size:26px;
+    margin-bottom:5px;
+  }
+}
+
 /* ===== v11.4 PHONE LANDSCAPE FIX =====
    Desktop keeps the exact original TV CSS.
    Only short landscape screens use a fixed 1920x1080 canvas, then scale
@@ -1019,6 +1077,12 @@ body{display:flex;align-items:center;justify-content:center}
 }
 
 </style>
+
+<script>
+if (window.self !== window.top) {
+  document.documentElement.classList.add("embedded-scoreboard");
+}
+</script>
 </head>
 <body>
 
