@@ -1022,7 +1022,8 @@ img{
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:11px 18px
+    min-height:58px;
+    padding:6px 18px
   }
 
   .home-page .around-club-title h2{
