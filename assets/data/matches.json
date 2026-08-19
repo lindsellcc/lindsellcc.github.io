@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-19T17:58:56.775971+00:00",
+  "generated_at": "2026-08-19T19:35:58.534723+00:00",
   "season": 2026,
   "next_fixture": {
     "id": 7744491,
@@ -20,11 +20,15 @@
     "away_name": "Hockerill CC Sunday 1st XI",
     "competition_type": "Friendly",
     "match_type": "Limited Overs",
-    "result_description": "Match In Progress",
+    "result_description": "Hockerill CC - Sunday 1st XI - Won",
     "innings": [
       {
         "team_name": "Hockerill CC Sunday 1st XI",
-        "score": "180/7 (19.0)"
+        "score": "184/8 (20.0)"
+      },
+      {
+        "team_name": "Lindsell CC Friendly XI",
+        "score": "169/6 (20.0)"
       }
     ]
   },
@@ -50,11 +54,15 @@
       "away_name": "Hockerill CC Sunday 1st XI",
       "competition_type": "Friendly",
       "match_type": "Limited Overs",
-      "result_description": "Match In Progress",
+      "result_description": "Hockerill CC - Sunday 1st XI - Won",
       "innings": [
         {
           "team_name": "Hockerill CC Sunday 1st XI",
-          "score": "180/7 (19.0)"
+          "score": "184/8 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Friendly XI",
+          "score": "169/6 (20.0)"
         }
       ]
     },
