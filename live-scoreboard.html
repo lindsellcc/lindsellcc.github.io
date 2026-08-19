@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,follow">
-<link rel="icon" type="image/png" href="assets/images/logo.png">
 <title>Lindsell Live Cricket Scoreboard</title>
 <style>
 :root{
@@ -491,64 +489,6 @@ body{display:flex;align-items:center;justify-content:center}
   #rotateLayer{display:none !important}
 }
 
-
-
-
-/* ===== WEBSITE v1.3.14 EMBEDDED MOBILE PANEL FIT =====
-   The website embeds this 16:9 scoreboard in a shallow iframe on phones.
-   Compact only the public standby / waiting / completed panels when embedded;
-   the full-screen scoreboard and TV layout are unchanged.
-*/
-@media (max-height:420px) {
-  html.embedded-scoreboard .public-layer{
-    padding:5px 8px;
-  }
-
-  html.embedded-scoreboard .public-panel{
-    width:min(96vw,720px);
-    max-height:calc(100vh - 10px);
-    padding:8px 14px 9px;
-    border-top-width:2px;
-    box-shadow:0 8px 28px rgba(0,0,0,.28);
-  }
-
-  html.embedded-scoreboard .public-eyebrow{
-    font-size:clamp(8px,4vh,11px);
-    letter-spacing:.13em;
-    margin-bottom:4px;
-  }
-
-  html.embedded-scoreboard .public-title{
-    font-size:clamp(18px,11vh,32px);
-    line-height:.96;
-  }
-
-  html.embedded-scoreboard .public-copy{
-    max-width:92%;
-    margin-top:5px;
-    font-size:clamp(9px,5vh,12px);
-    line-height:1.24;
-  }
-
-  html.embedded-scoreboard .public-button{
-    margin-top:7px;
-    padding:6px 11px;
-    border-radius:3px;
-    font-size:clamp(9px,4.6vh,12px);
-    letter-spacing:.04em;
-  }
-
-  html.embedded-scoreboard .public-small{
-    margin-top:5px;
-    font-size:8px;
-    line-height:1.2;
-  }
-
-  html.embedded-scoreboard .rotate-symbol{
-    font-size:26px;
-    margin-bottom:5px;
-  }
-}
 
 /* ===== v11.4 PHONE LANDSCAPE FIX =====
    Desktop keeps the exact original TV CSS.
@@ -1079,12 +1019,6 @@ body{display:flex;align-items:center;justify-content:center}
 }
 
 </style>
-
-<script>
-if (window.self !== window.top) {
-  document.documentElement.classList.add("embedded-scoreboard");
-}
-</script>
 </head>
 <body>
 
@@ -1241,7 +1175,7 @@ if (window.self !== window.top) {
   <div class="watermark">LINDSELL CC LIVE SCOREBOARD</div>
 </div>
 
-<script src="live-scoreboard-config.js"></script>
+<script src="live-scoreboard-config.js?v=1.3.10"></script>
 <script>
 function safe(v,f="—"){return v===undefined||v===null||v===""?f:v}
 function setText(id,v){document.getElementById(id).textContent=safe(v)}
@@ -1357,7 +1291,7 @@ function render(){
 
   const rr=d.runRate??runRate(Number(d.runs||0),d.overs);
 
-  if(Number(d.innings)===2 && Number(d.target)>0){
+  if(Number(d.innings)>=2 && Number(d.target)>0){
     const target=Number(d.target);
     const runs=Number(d.runs||0);
     const maxOvers=Number(d.maxOvers||40);
@@ -1369,11 +1303,16 @@ function render(){
     setText("stat1Label","TARGET");
     setText("stat1Value",target);
 
-    setText("stat2Label","NEED");
-    setText("stat2Value",`${runsNeeded} FROM ${ballsRemaining}`);
+    if(d.previousInningsScore){
+      setText("stat2Label","LAST INNINGS SCORE");
+      setText("stat2Value",d.previousInningsScore);
+    }else{
+      setText("stat2Label","NEED");
+      setText("stat2Value",`${runsNeeded} FROM ${ballsRemaining}`);
+    }
 
-    setText("stat3Label","REQUIRED RATE");
-    setText("stat3Value",formatRate(d.requiredRate??rrr));
+    setText("stat3Label",`NEED • RRR ${formatRate(d.requiredRate??rrr)}`);
+    setText("stat3Value",`${runsNeeded} FROM ${ballsRemaining}`);
   }else{
     setText("stat1Label","RUN RATE");
     setText("stat1Value",formatRate(rr));
