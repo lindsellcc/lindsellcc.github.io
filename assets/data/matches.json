@@ -1,16 +1,7 @@
 {
-  "generated_at": "2026-08-19T23:57:07.519977+00:00",
+  "generated_at": "2026-08-20T03:15:08.779894+00:00",
   "season": 2026,
-  "next_fixture": {
-    "id": 7744491,
-    "match_date": "19/08/2026",
-    "match_time": "12:00",
-    "ground_name": "Lindsell Cricket Club",
-    "home_name": "Lindsell CC Friendly XI",
-    "away_name": "Hockerill CC Sunday 1st XI",
-    "competition_type": "Friendly",
-    "match_type": "Limited Overs"
-  },
+  "next_fixture": null,
   "latest_result": {
     "id": 7744491,
     "match_date": "19/08/2026",
@@ -32,18 +23,7 @@
       }
     ]
   },
-  "upcoming": [
-    {
-      "id": 7744491,
-      "match_date": "19/08/2026",
-      "match_time": "12:00",
-      "ground_name": "Lindsell Cricket Club",
-      "home_name": "Lindsell CC Friendly XI",
-      "away_name": "Hockerill CC Sunday 1st XI",
-      "competition_type": "Friendly",
-      "match_type": "Limited Overs"
-    }
-  ],
+  "upcoming": [],
   "recent_results": [
     {
       "id": 7744491,
