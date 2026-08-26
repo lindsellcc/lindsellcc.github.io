@@ -1,30 +1,63 @@
 {
-  "generated_at": "2026-08-26T14:07:41.631532+00:00",
+  "generated_at": "2026-08-26T16:57:59.481259+00:00",
   "season": 2026,
-  "next_fixture": null,
-  "latest_result": {
-    "id": 7744491,
-    "match_date": "19/08/2026",
+  "next_fixture": {
+    "id": 7750499,
+    "match_date": "26/08/2026",
     "match_time": "12:00",
     "ground_name": "Lindsell Cricket Club",
     "home_name": "Lindsell CC Friendly XI",
-    "away_name": "Hockerill CC Sunday 1st XI",
+    "away_name": "Sampfords CC Sampfords CC",
+    "competition_type": "Friendly",
+    "match_type": "Limited Overs"
+  },
+  "latest_result": {
+    "id": 7750499,
+    "match_date": "26/08/2026",
+    "match_time": "12:00",
+    "ground_name": "Lindsell Cricket Club",
+    "home_name": "Lindsell CC Friendly XI",
+    "away_name": "Sampfords CC Sampfords CC",
     "competition_type": "Friendly",
     "match_type": "Limited Overs",
-    "result_description": "Hockerill CC - Sunday 1st XI - Won",
+    "result_description": "Match In Progress",
     "innings": [
       {
-        "team_name": "Hockerill CC Sunday 1st XI",
-        "score": "184/8 (20.0)"
-      },
-      {
-        "team_name": "Lindsell CC Friendly XI",
-        "score": "169/6 (20.0)"
+        "team_name": "Sampfords CC Sampfords CC",
+        "score": "35/0 (4.0)"
       }
     ]
   },
-  "upcoming": [],
+  "upcoming": [
+    {
+      "id": 7750499,
+      "match_date": "26/08/2026",
+      "match_time": "12:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Sampfords CC Sampfords CC",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs"
+    }
+  ],
   "recent_results": [
+    {
+      "id": 7750499,
+      "match_date": "26/08/2026",
+      "match_time": "12:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Friendly XI",
+      "away_name": "Sampfords CC Sampfords CC",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Match In Progress",
+      "innings": [
+        {
+          "team_name": "Sampfords CC Sampfords CC",
+          "score": "35/0 (4.0)"
+        }
+      ]
+    },
     {
       "id": 7744491,
       "match_date": "19/08/2026",
@@ -207,27 +240,6 @@
         {
           "team_name": "Lindsell CC Friendly XI",
           "score": "163 all out (32.1)"
-        }
-      ]
-    },
-    {
-      "id": 7696043,
-      "match_date": "08/07/2026",
-      "match_time": "12:00",
-      "ground_name": "Lindsell Cricket Club",
-      "home_name": "Lindsell CC Twenty20",
-      "away_name": "Sampfords CC Sampfords CC",
-      "competition_type": "Friendly",
-      "match_type": "Limited Overs",
-      "result_description": "Lindsell CC - Twenty20 - Won",
-      "innings": [
-        {
-          "team_name": "Sampfords CC Sampfords CC",
-          "score": "156/4 (20.0)"
-        },
-        {
-          "team_name": "Lindsell CC Twenty20",
-          "score": "160/3 (18.0)"
         }
       ]
     }
