@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T14:27:48.832205+00:00",
+  "generated_at": "2026-09-10T18:29:14.064302+00:00",
   "season": 2026,
   "next_fixture": null,
   "latest_result": {
@@ -181,11 +181,15 @@
       "away_name": "Eastons CC Sunday 1st XI",
       "competition_type": "Friendly",
       "match_type": "Limited Overs",
-      "result_description": "Match In Progress",
+      "result_description": "Eastons CC - Sunday 1st XI - Won",
       "innings": [
         {
           "team_name": "Lindsell CC Friendly XI",
           "score": "160/8 (20.0)"
+        },
+        {
+          "team_name": "Eastons CC Sunday 1st XI",
+          "score": "161/5 (18)"
         }
       ]
     },
