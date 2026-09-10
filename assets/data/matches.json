@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T09:28:20.943069+00:00",
+  "generated_at": "2026-09-10T10:28:19.569802+00:00",
   "season": 2026,
   "next_fixture": null,
   "latest_result": {
@@ -190,27 +190,6 @@
       ]
     },
     {
-      "id": 7604571,
-      "match_date": "18/07/2026",
-      "match_time": "14:00",
-      "ground_name": "Lindsell Cricket Club",
-      "home_name": "Lindsell CC Friendly XI",
-      "away_name": "Hatfield Broad Oak CC Sunday Friendly",
-      "competition_type": "Friendly",
-      "match_type": "Limited Overs",
-      "result_description": "Cancelled",
-      "innings": [
-        {
-          "team_name": "Lindsell CC Friendly XI",
-          "score": ""
-        },
-        {
-          "team_name": "Hatfield Broad Oak CC Sunday Friendly",
-          "score": ""
-        }
-      ]
-    },
-    {
       "id": 7604569,
       "match_date": "11/07/2026",
       "match_time": "14:00",
@@ -228,6 +207,27 @@
         {
           "team_name": "Lindsell CC Friendly XI",
           "score": "163 all out (32.1)"
+        }
+      ]
+    },
+    {
+      "id": 7696043,
+      "match_date": "08/07/2026",
+      "match_time": "12:00",
+      "ground_name": "Lindsell Cricket Club",
+      "home_name": "Lindsell CC Twenty20",
+      "away_name": "Sampfords CC Sampfords CC",
+      "competition_type": "Friendly",
+      "match_type": "Limited Overs",
+      "result_description": "Lindsell CC - Twenty20 - Won",
+      "innings": [
+        {
+          "team_name": "Sampfords CC Sampfords CC",
+          "score": "156/4 (20.0)"
+        },
+        {
+          "team_name": "Lindsell CC Twenty20",
+          "score": "160/3 (18.0)"
         }
       ]
     }
