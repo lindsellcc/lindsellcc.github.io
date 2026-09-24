@@ -1,0 +1,14 @@
+{
+  "event": {
+    "title": "Awards Dinner",
+    "description": "Celebrate the season with a specially curated three-course dinner and a celebratory atmosphere.",
+    "date": "Friday 23 October 2026, 7pm",
+    "venue": "The Green Man, Lindsell"
+  },
+  "products": [
+    {"id":"dinner","name":"End of Season Dinner","pricePence":4000,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/UL347TCCMRR3ECJI7IJM2TGZ.png?width=640&dpr=1"},
+    {"id":"heads","name":"Heads or Tails","pricePence":500,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/MSGMUXIQEORM77ZE3B4GARER.png?width=640&dpr=1"},
+    {"id":"raffle","name":"Raffle Tickets","pricePence":1000,"available":false},
+    {"id":"tie","name":"Club Tie","pricePence":2000,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/7HEVO2DM3W52WOSTPIFU5RBM.png?width=640&dpr=1"}
+  ]
+}
