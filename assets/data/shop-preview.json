@@ -68,7 +68,7 @@
     {
       "id": "heads",
       "name": "Heads or Tails",
-      "description": "Participation in the game of heads and tails.",
+      "description": "Participation in the game of heads and tails for one guest.",
       "pricePence": 500,
       "available": false,
       "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/MSGMUXIQEORM77ZE3B4GARER.png?width=640&dpr=1",
@@ -84,7 +84,7 @@
     {
       "id": "raffle",
       "name": "Raffle Tickets",
-      "description": "Raffle tickets for the evening.",
+      "description": "One raffle ticket entry for the evening.",
       "pricePence": 1000,
       "available": false,
       "maxQuantity": 20,
@@ -93,7 +93,7 @@
     {
       "id": "tie",
       "name": "Club Tie",
-      "description": "Lindsell Cricket Club tie.",
+      "description": "The new official Lindsell Cricket Club tie.",
       "pricePence": 2000,
       "available": false,
       "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/7HEVO2DM3W52WOSTPIFU5RBM.png?width=640&dpr=1",
