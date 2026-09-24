@@ -3,7 +3,9 @@
   const $ = id => document.getElementById(id);
   // Checkout uses its own Supabase project; the site-wide config belongs to the live scoreboard.
   const api = 'https://nxjwggsbjshmvrmlmzee.supabase.co/functions/v1/club-shop';
-  const previewMode = new URLSearchParams(location.search).get('preview') === '1';
+  const params = new URLSearchParams(location.search);
+  const previewMode = params.get('preview') === '1';
+  const testMode = !previewMode && params.get('payment-test') === '1';
   const money = pennies => new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(pennies / 100);
   const basketKey='lcc-awards-dinner-2026-basket-v1';
   let catalog, card, busy=false, locked=false, basketItems=[], editingId=null, detailsOpen=false, storageAvailable=true;
@@ -231,22 +233,34 @@
       $('shop-loading').hidden=true; $('shop-content').hidden=false;
       if(!catalog.salesOpen){
         $('shop-closed').hidden=false;
-        if(!previewMode){renderPreview();return;}
-        if(!catalog.products.every(p=>Array.isArray(p.fields) && Number.isInteger(p.maxQuantity))) {
-          throw new Error('The interactive preview is temporarily unavailable.');
+        if(!previewMode && !testMode){renderPreview();return;}
+        if(previewMode){
+          if(!catalog.products.every(p=>Array.isArray(p.fields) && Number.isInteger(p.maxQuantity))) {
+            throw new Error('The interactive preview is temporarily unavailable.');
+          }
+          catalog.products=catalog.products.map(p=>({...p,available:true}));
+          $('shop-closed').classList.add('shop-review-note');
+          $('shop-closed').querySelector('h3').textContent='Shop review — no bookings are being taken';
+          $('shop-closed-copy').textContent='Choose attendees and menu options, add them to your basket, then review the contact details step. No order or payment will be submitted.';
+          $('shop-review-link').hidden=true;
+          $('shop-badge').textContent='Review mode · checkout closed';
+          $('order-heading').textContent='Your order preview';
+          $('order-help').textContent='No order will be placed from this preview.';
+          document.body.classList.add('shop-preview-mode');
+          renderProducts();restoreBasket();renderOrder();$('shop-open').hidden=false;return;
         }
-        catalog.products=catalog.products.map(p=>({...p,available:true}));
+        if(!catalog.applicationId || !catalog.locationId || catalog.sandbox) throw new Error('Private payment test is not ready.');
         $('shop-closed').classList.add('shop-review-note');
-        $('shop-closed').querySelector('h3').textContent='Shop review — no bookings are being taken';
-        $('shop-closed-copy').textContent='Choose attendees and menu options, add them to your basket, then review the contact details step. No order or payment will be submitted.';
+        $('shop-closed').querySelector('h3').textContent='Private checkout test';
+        $('shop-closed-copy').textContent='Public bookings remain closed. A purchase on this page uses a real card and charges the displayed amount.';
         $('shop-review-link').hidden=true;
-        $('shop-badge').textContent='Review mode · checkout closed';
-        $('order-heading').textContent='Your order preview';
-        $('order-help').textContent='No order will be placed from this preview.';
-        document.body.classList.add('shop-preview-mode');
-        renderProducts();restoreBasket();renderOrder();$('shop-open').hidden=false;return;
+        $('shop-badge').textContent='Private test · real payment';
+        $('order-heading').textContent='Your test order';
+        const label=document.createElement('label');label.textContent='Private test code ';
+        const input=document.createElement('input');input.id='shop-test-code';input.name='testCode';input.type='password';input.minLength=24;input.maxLength=128;input.required=true;input.autocomplete='off';
+        label.append(input);$('payment-panel').insertBefore(label,$('card-container'));
       }
-      $('shop-badge').textContent='Secure card payment by Square';
+      if(!testMode || catalog.salesOpen)$('shop-badge').textContent='Secure card payment by Square';
       renderProducts();restoreBasket();renderOrder();$('shop-open').hidden=false;
       await loadSquare(catalog.sandbox);
       if(!window.Square) throw new Error('The secure card form could not load. Please refresh the page.');
@@ -269,7 +283,7 @@
       submitted=true;
       const response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         checkoutId,catalogRevision:catalog.revision,quotedTotal:quote,sourceId:token.token,items:chosen(),
-        buyerName:name,email,phone,dietary:$('dietary').value.trim()
+        buyerName:name,email,phone,dietary:$('dietary').value.trim(),...(testMode&&!catalog.salesOpen?{testCode:$('shop-test-code').value}:{})
       })});
       const result=await response.json();submitted=false;
       if(!response.ok){if(result.uncertain){locked=true;error(`Your payment status is being checked. Please do not pay again. Contact info@lindsellcc.co.uk with reference ${checkoutId}.`);return;}throw new Error(result.error||'Payment could not be completed.');}
