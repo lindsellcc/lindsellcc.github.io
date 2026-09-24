@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Book the Lindsell CC Awards Dinner on 23 October 2026 at The Green Man, Lindsell, and buy event extras on the club website.">
 <meta name="twitter:image" content="https://lindsellcc.co.uk/assets/images/ground-pristine.jpeg">
 <link rel="stylesheet" href="assets/css/style.css?v=1.3.23">
-<link rel="stylesheet" href="assets/css/shop.css?v=1.3.25">
+<link rel="stylesheet" href="assets/css/shop.css?v=1.3.26">
 </head>
 <body class="shop-page">
 <header class="site-header">
@@ -70,26 +70,29 @@
       <div id="shop-closed" class="shop-closed" hidden>
         <h3>Bookings on this page are being prepared</h3>
         <p id="shop-closed-copy">The items below are the Awards Dinner range. Checkout here will open after the Square connection has been tested.</p>
+        <p id="shop-review-link"><a href="shop.html?preview=1">Build a basket for later</a></p>
         <div id="shop-preview-products" class="shop-preview-products"></div>
       </div>
       <div id="shop-open" class="shop-layout" hidden>
         <form id="checkout-form" novalidate>
           <section id="items-panel" class="shop-panel">
-            <h3>1. Choose your items</h3>
+            <h3>1. Add items to your basket</h3>
             <div id="product-list"></div>
-            <div id="customisations" class="shop-customisations"></div>
+            <p id="basket-feedback" class="shop-small" role="status"></p>
+            <button id="continue-to-details" class="btn primary shop-continue" type="button" disabled>Continue to details</button>
           </section>
-          <section id="booking-panel" class="shop-panel">
-            <h3>2. Booking details</h3>
+          <section id="booking-panel" class="shop-panel" hidden>
+            <h3>2. Your contact details</h3>
+            <p>Attendee names and menu choices are already saved with the items in your basket.</p>
             <div class="shop-form-grid">
               <label>Full name <input id="buyer-name" name="buyerName" autocomplete="name" maxlength="100" required></label>
               <label>Email address <input id="buyer-email" name="email" type="email" autocomplete="email" maxlength="255" required></label>
               <label>Phone number <input id="buyer-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required></label>
             </div>
             <label>Dietary requirements or accessibility notes <textarea id="dietary" name="dietary" rows="3" maxlength="1000" placeholder="Optional — include the person's name and requirement"></textarea></label>
-            <p class="shop-small">Your details and menu choices are used to manage this order and contact you about the event. Please contact <a href="mailto:info@lindsellcc.co.uk">info@lindsellcc.co.uk</a> with any changes.</p>
+            <p class="shop-small">Your details and menu choices are used to manage this order and contact you about the event. Please contact <a href="mailto:info@lindsellcc.co.uk">info@lindsellcc.co.uk</a> with any changes. Contact details are not saved in your basket.</p>
           </section>
-          <section id="payment-panel" class="shop-panel">
+          <section id="payment-panel" class="shop-panel" hidden>
             <h3>3. Pay securely</h3>
             <p>Card details are entered into Square’s secure card form on this page. We do not receive or store your card number.</p>
             <div id="card-container" aria-label="Card payment details"></div>
@@ -102,6 +105,8 @@
           <h3 id="order-heading">Your order</h3>
           <div id="order-lines">Select items to see your total.</div>
           <div class="shop-total"><strong>Total</strong><strong id="order-total">£0.00</strong></div>
+          <p id="basket-note" class="shop-small">Your basket is saved on this device so you can return later. It includes guest names and meal choices, but no contact or card details.</p>
+          <button id="clear-basket" class="shop-text-button" type="button" hidden>Clear basket</button>
           <p id="order-help" class="shop-small">Questions? Email <a href="mailto:info@lindsellcc.co.uk">info@lindsellcc.co.uk</a>.</p>
         </aside>
       </div>
@@ -116,6 +121,12 @@
   </div>
 </main>
 
+<dialog id="shop-image-dialog" class="shop-image-dialog" aria-label="Product image">
+  <button id="shop-image-close" class="shop-image-close" type="button" aria-label="Close larger image">×</button>
+  <img id="shop-image-full" alt="">
+  <p id="shop-image-caption"></p>
+</dialog>
+
 <footer class="footer">
   <div class="container footer-grid">
     <div><strong style="font-size:22px">Lindsell Cricket Club</strong><p class="small">A friendly village cricket club in rural Essex.</p></div>
@@ -127,6 +138,6 @@
 
 <script src="assets/js/site.js?v=1.3.23"></script>
 <script src="assets/js/config.js?v=1.3.23"></script>
-<script src="assets/js/shop.js?v=1.3.25" defer></script>
+<script src="assets/js/shop.js?v=1.3.26" defer></script>
 </body>
 </html>
