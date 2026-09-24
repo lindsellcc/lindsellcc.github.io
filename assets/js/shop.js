@@ -210,7 +210,7 @@
   async function init() {
     try {
       if(previewMode){
-        const preview=await fetch('assets/data/shop-preview.json?v=1.3.26',{cache:'no-store'});
+        const preview=await fetch('assets/data/shop-preview.json?v=1.3.27',{cache:'no-store'});
         if(!preview.ok) throw new Error('The interactive preview is temporarily unavailable.');
         catalog=await preview.json();catalog.salesOpen=false;
       }else{
@@ -219,7 +219,7 @@
           if(!response.ok) throw new Error('Shop API unavailable');
           catalog=await response.json();
         } catch {
-          const preview=await fetch('assets/data/shop-preview.json?v=1.3.26',{cache:'no-store'});
+          const preview=await fetch('assets/data/shop-preview.json?v=1.3.27',{cache:'no-store'});
           if(!preview.ok) throw new Error('The shop is temporarily unavailable. Please try again later.');
           catalog=await preview.json();catalog.salesOpen=false;
         }
