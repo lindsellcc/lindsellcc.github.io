@@ -6,9 +6,99 @@
     "venue": "The Green Man, Lindsell"
   },
   "products": [
-    {"id":"dinner","name":"End of Season Dinner","pricePence":4000,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/UL347TCCMRR3ECJI7IJM2TGZ.png?width=640&dpr=1"},
-    {"id":"heads","name":"Heads or Tails","pricePence":500,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/MSGMUXIQEORM77ZE3B4GARER.png?width=640&dpr=1"},
-    {"id":"raffle","name":"Raffle Tickets","pricePence":1000,"available":false},
-    {"id":"tie","name":"Club Tie","pricePence":2000,"available":false,"image":"https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/7HEVO2DM3W52WOSTPIFU5RBM.png?width=640&dpr=1"}
+    {
+      "id": "dinner",
+      "name": "End of Season Dinner",
+      "description": "Three-course dinner. Select each guest’s menu below.",
+      "pricePence": 4000,
+      "available": false,
+      "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/UL347TCCMRR3ECJI7IJM2TGZ.png?width=640&dpr=1",
+      "maxQuantity": 10,
+      "fields": [
+        {
+          "key": "attendeeName",
+          "label": "Name of attendee",
+          "kind": "text"
+        },
+        {
+          "key": "starter",
+          "label": "Starter",
+          "kind": "select",
+          "choices": [
+            "Poached Salmon",
+            "Goats Cheese on Toast",
+            "Mushroom & Pecorino Gratin",
+            "Ham Hock",
+            "Tomato Soup"
+          ]
+        },
+        {
+          "key": "main",
+          "label": "Main",
+          "kind": "select",
+          "choices": [
+            "Salmon Fillet",
+            "Slow Braised Sticky Lamb",
+            "Herb Crusted Chicken",
+            "Steak & Onion Suet Pudding",
+            "Sauteed Herb Gnocchi"
+          ]
+        },
+        {
+          "key": "dessert",
+          "label": "Dessert",
+          "kind": "select",
+          "choices": [
+            "Sticky Toffee Pudding",
+            "Raspberry & Tarragon Panna Cotta",
+            "Chefs Cheesecake",
+            "Bread & Butter Pudding",
+            "Selection of Ice Cream",
+            "Selection of Sorbet"
+          ]
+        },
+        {
+          "key": "cheese",
+          "label": "Optional additional cheese course",
+          "kind": "checkbox",
+          "pricePence": 895
+        }
+      ]
+    },
+    {
+      "id": "heads",
+      "name": "Heads or Tails",
+      "description": "Participation in the game of heads and tails.",
+      "pricePence": 500,
+      "available": false,
+      "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/MSGMUXIQEORM77ZE3B4GARER.png?width=640&dpr=1",
+      "maxQuantity": 10,
+      "fields": [
+        {
+          "key": "attendeeName",
+          "label": "Name of attendee",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "id": "raffle",
+      "name": "Raffle Tickets",
+      "description": "Raffle tickets for the evening.",
+      "pricePence": 1000,
+      "available": false,
+      "maxQuantity": 20,
+      "fields": []
+    },
+    {
+      "id": "tie",
+      "name": "Club Tie",
+      "description": "Lindsell Cricket Club tie.",
+      "pricePence": 2000,
+      "available": false,
+      "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/7HEVO2DM3W52WOSTPIFU5RBM.png?width=640&dpr=1",
+      "maxQuantity": 10,
+      "fields": []
+    }
   ]
 }
