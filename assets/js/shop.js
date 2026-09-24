@@ -258,17 +258,17 @@
     if(!$('checkout-form').reportValidity())return;
     if(!total()){error('Please choose at least one item.');return;}
     setBusy(true);
-    const name=$('buyer-name').value.trim(),email=$('buyer-email').value.trim(),checkoutId=crypto.randomUUID();
+    const name=$('buyer-name').value.trim(),email=$('buyer-email').value.trim(),phone=$('buyer-phone').value.trim(),checkoutId=crypto.randomUUID();
     let submitted=false;
     try {
       const quote=total();
       const token=await card.tokenize({amount:(quote/100).toFixed(2),currencyCode:'GBP',intent:'CHARGE',customerInitiated:true,sellerKeyedIn:false,
-        billingContact:{givenName:name.split(/\s+/)[0],familyName:name.split(/\s+/).slice(1).join(' ')||undefined,email,countryCode:'GB'}});
+        billingContact:{givenName:name.split(/\s+/)[0],familyName:name.split(/\s+/).slice(1).join(' ')||undefined,email,phone,countryCode:'GB'}});
       if(token.status!=='OK')throw new Error('Card details could not be verified. Please check them and try again.');
       submitted=true;
       const response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         checkoutId,catalogRevision:catalog.revision,quotedTotal:quote,sourceId:token.token,items:chosen(),
-        buyerName:name,email,phone:$('buyer-phone').value.trim(),dietary:$('dietary').value.trim()
+        buyerName:name,email,phone,dietary:$('dietary').value.trim()
       })});
       const result=await response.json();submitted=false;
       if(!response.ok){if(result.uncertain){locked=true;error(`Your payment status is being checked. Please do not pay again. Contact info@lindsellcc.co.uk with reference ${checkoutId}.`);return;}throw new Error(result.error||'Payment could not be completed.');}
