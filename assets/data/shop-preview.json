@@ -87,6 +87,7 @@
       "description": "One raffle ticket entry for the evening.",
       "pricePence": 1000,
       "available": false,
+      "image": "https://153909438.cdn6.editmysite.com/uploads/1/5/3/9/153909438/EGUSVP445YB22CU4VAYRYEDU.png?width=640&dpr=1",
       "maxQuantity": 20,
       "fields": []
     },
