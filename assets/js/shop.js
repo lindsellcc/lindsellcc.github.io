@@ -2,6 +2,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const api = `${window.LINDSELL_SITE_CONFIG.supabaseUrl}/functions/v1/club-shop`;
+  const previewMode = new URLSearchParams(location.search).get('preview') === '1';
   const money = pennies => new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(pennies / 100);
   let catalog, card, busy=false, locked=false;
   const quantity = p => Number($(`qty-${p.id}`)?.value || 0);
@@ -88,7 +89,9 @@
       detail.append(copy);
       const select=document.createElement('select'); select.id=`qty-${p.id}`; select.setAttribute('aria-label',`Quantity: ${p.name}`); select.disabled=!p.available;
       for(let n=0;n<=(p.available?p.maxQuantity:0);n++){const option=document.createElement('option');option.value=n;option.textContent=n;select.append(option);}
-      select.addEventListener('change',renderCustomisations); row.append(detail,select); list.append(row);
+      select.addEventListener('change',renderCustomisations);
+      const qtyLabel=document.createElement('label');qtyLabel.className='shop-quantity';qtyLabel.textContent='Quantity';qtyLabel.append(select);
+      row.append(detail,qtyLabel); list.append(row);
     }
     renderCustomisations();
   }
@@ -97,7 +100,7 @@
     for(const p of catalog.products){
       const card=document.createElement('div'); card.className='shop-preview-item';
       const name=document.createElement('strong'); name.textContent=p.name;
-      const price=document.createElement('span'); price.textContent=p.available?money(p.pricePence):p.pricePence?`${money(p.pricePence)} on Square when last checked`:'Check Square for price';
+      const price=document.createElement('span'); price.textContent=p.pricePence?`${money(p.pricePence)} guide price`:'Price to be confirmed';
       const image=productImage(p);if(image)card.append(image);
       card.append(name,price);list.append(card);
     }
@@ -113,15 +116,37 @@
         if(!response.ok) throw new Error('Shop API unavailable');
         catalog=await response.json();
       } catch {
-        const preview=await fetch('assets/data/shop-preview.json',{cache:'no-store'});
+        const preview=await fetch('assets/data/shop-preview.json?v=1.3.25',{cache:'no-store'});
         if(!preview.ok) throw new Error('The shop is temporarily unavailable. Please try again later.');
+        catalog=await preview.json();catalog.salesOpen=false;
+      }
+      if(previewMode){
+        const preview=await fetch('assets/data/shop-preview.json?v=1.3.25',{cache:'no-store'});
+        if(!preview.ok) throw new Error('The interactive preview is temporarily unavailable.');
         catalog=await preview.json();catalog.salesOpen=false;
       }
       $('event-title').textContent=catalog.event.title;
       $('event-description').textContent=catalog.event.description||'';
       $('event-details').textContent=[catalog.event.date,catalog.event.venue].filter(Boolean).join(' · ');
       $('shop-loading').hidden=true; $('shop-content').hidden=false;
-      if(!catalog.salesOpen){renderPreview();$('shop-closed').hidden=false;return;}
+      if(!catalog.salesOpen){
+        $('shop-closed').hidden=false;
+        if(!previewMode){renderPreview();return;}
+        if(!catalog.products.every(p=>Array.isArray(p.fields) && Number.isInteger(p.maxQuantity))) {
+          throw new Error('The interactive preview is temporarily unavailable.');
+        }
+        catalog.products=catalog.products.map(p=>({...p,available:true}));
+        $('shop-closed').classList.add('shop-review-note');
+        $('shop-closed').querySelector('h3').textContent='Shop review — no bookings are being taken';
+        $('shop-closed-copy').textContent='Select items and meal choices below to review the order flow. Prices are shown for review; no details are collected and payment is disabled.';
+        $('shop-badge').textContent='Review mode · checkout closed';
+        $('booking-panel').hidden=true;$('payment-panel').hidden=true;
+        $('order-heading').textContent='Your order preview';
+        $('order-help').textContent='No order will be placed from this preview.';
+        document.body.classList.add('shop-preview-mode');
+        renderProducts();$('shop-open').hidden=false;return;
+      }
+      $('shop-badge').textContent='Secure card payment by Square';
       renderProducts();$('shop-open').hidden=false;
       await loadSquare(catalog.sandbox);
       if(!window.Square) throw new Error('The secure card form could not load. Please refresh the page.');
