@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="The Lindsell Cricket Club shop is coming soon, with supporter clothing, club merchandise, playing and training wear, gifts and matchday extras.">
+<meta name="description" content="Book the Lindsell CC Awards Dinner on 23 October 2026 at The Green Man, Lindsell, and buy event extras on the club website.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>Club Shop | Lindsell Cricket Club</title>
 <link rel="canonical" href="https://lindsellcc.co.uk/shop.html">
@@ -14,15 +14,16 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lindsell Cricket Club">
 <meta property="og:title" content="Club Shop | Lindsell Cricket Club">
-<meta property="og:description" content="The Lindsell Cricket Club shop is coming soon, with supporter clothing, club merchandise, playing and training wear, gifts and matchday extras.">
+<meta property="og:description" content="Book the Lindsell CC Awards Dinner on 23 October 2026 at The Green Man, Lindsell, and buy event extras on the club website.">
 <meta property="og:url" content="https://lindsellcc.co.uk/shop.html">
 <meta property="og:image" content="https://lindsellcc.co.uk/assets/images/ground-pristine.jpeg">
 <meta property="og:image:alt" content="Lindsell Cricket Club ground in rural Essex">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Club Shop | Lindsell Cricket Club">
-<meta name="twitter:description" content="The Lindsell Cricket Club shop is coming soon, with supporter clothing, club merchandise, playing and training wear, gifts and matchday extras.">
+<meta name="twitter:description" content="Book the Lindsell CC Awards Dinner on 23 October 2026 at The Green Man, Lindsell, and buy event extras on the club website.">
 <meta name="twitter:image" content="https://lindsellcc.co.uk/assets/images/ground-pristine.jpeg">
-<link rel="stylesheet" href="assets/css/style.css?v=1.3.21">
+<link rel="stylesheet" href="assets/css/style.css?v=1.3.23">
+<link rel="stylesheet" href="assets/css/shop.css?v=1.3.24">
 </head>
 <body class="shop-page">
 <header class="site-header">
@@ -44,103 +45,76 @@
   </div>
 </header>
 
-<section class="page-hero">
+<section class="page-hero shop-hero">
   <div class="container">
+    <div class="kicker">Lindsell Cricket Club</div>
     <h1>Club Shop</h1>
-    <p>Official Lindsell CC merchandise, supporter wear and club essentials are on the way.</p>
+    <p>Book the Awards Dinner and add event extras, all from the club website.</p>
   </div>
 </section>
 
-<section class="section shop-launch-section">
-  <div class="container shop-launch-grid">
-    <div class="shop-launch-copy">
-      <div class="kicker" style="color:var(--gold)">Opening soon</div>
-      <h2>Wear the club.<br>Support Lindsell.</h2>
-      <p class="prose">We’re putting together a new Lindsell CC range for players, members, families and supporters. This page will become the home of the official Club Shop as soon as the first products are ready.</p>
-      <p class="shop-launch-note">There’s nothing to buy just yet — but this is where the range will appear first.</p>
-      <div class="actions">
-        <a class="btn primary" href="contact.html#contact-form">Suggest an item</a>
-        <a class="btn shop-secondary-btn" href="https://www.instagram.com/lindsellcc/" target="_blank" rel="noopener">Follow for updates</a>
-      </div>
-    </div>
-
-    <div class="shop-preview-card" aria-label="Lindsell Cricket Club shop coming soon">
-      <div class="shop-preview-top">
-        <span class="shop-status-pill">Coming soon</span>
-        <span class="shop-preview-mark">LCC</span>
-      </div>
-      <div class="shop-preview-logo-wrap">
-        <img src="assets/images/logo.png" alt="Lindsell Cricket Club crest">
-      </div>
-      <div class="shop-preview-copy">
-        <strong>Lindsell Cricket Club</strong>
-        <span>Official club shop</span>
-      </div>
-      <div class="shop-preview-tags">
-        <span>Supporter wear</span>
-        <span>Merchandise</span>
-        <span>Club kit</span>
-        <span>Gifts</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt">
+<main class="section shop-main">
   <div class="container">
-    <div class="section-title section-title-stacked shop-section-title">
-      <div>
-        <div class="kicker" style="color:var(--gold)">Planned range</div>
-        <h2>What’s coming to the shop</h2>
-        <p>We’re building the first range around the things players and supporters are most likely to want. The final products may change as we get closer to launch.</p>
+    <div id="shop-loading" role="status">Loading the shop…</div>
+    <div id="shop-message" class="shop-message" role="status" hidden></div>
+    <div id="shop-content" hidden>
+      <div class="shop-event-heading">
+        <div>
+          <div class="kicker">Club event</div>
+          <h2 id="event-title"></h2>
+          <p id="event-description"></p>
+          <p id="event-details" class="shop-event-details"></p>
+        </div>
+        <span class="shop-badge">Secure card payment by Square</span>
+      </div>
+      <div id="shop-closed" class="shop-closed" hidden>
+        <h3>Bookings on this page are being prepared</h3>
+        <p>The items below are the Awards Dinner range. Checkout here will open after the Square connection has been tested.</p>
+        <div id="shop-preview-products" class="shop-preview-products"></div>
+      </div>
+      <div id="shop-open" class="shop-layout" hidden>
+        <form id="checkout-form" novalidate>
+          <section class="shop-panel">
+            <h3>1. Choose your items</h3>
+            <div id="product-list"></div>
+            <div id="customisations" class="shop-customisations"></div>
+          </section>
+          <section class="shop-panel">
+            <h3>2. Booking details</h3>
+            <div class="shop-form-grid">
+              <label>Full name <input id="buyer-name" name="buyerName" autocomplete="name" maxlength="100" required></label>
+              <label>Email address <input id="buyer-email" name="email" type="email" autocomplete="email" maxlength="255" required></label>
+              <label>Phone number <input id="buyer-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" required></label>
+            </div>
+            <label>Dietary requirements or accessibility notes <textarea id="dietary" name="dietary" rows="3" maxlength="1000" placeholder="Optional — include the person's name and requirement"></textarea></label>
+            <p class="shop-small">Your details and menu choices are used to manage this order and contact you about the event. Please contact <a href="mailto:info@lindsellcc.co.uk">info@lindsellcc.co.uk</a> with any changes.</p>
+          </section>
+          <section class="shop-panel">
+            <h3>3. Pay securely</h3>
+            <p>Card details are entered into Square’s secure card form on this page. We do not receive or store your card number.</p>
+            <div id="card-container" aria-label="Card payment details"></div>
+            <p id="payment-error" class="shop-error" role="alert" hidden></p>
+            <button id="pay-button" class="btn primary shop-pay" type="submit" disabled>Choose items</button>
+            <p class="shop-small">If your bank asks you to confirm the payment, complete that step to finish your booking. Please wait for the confirmation before trying again.</p>
+          </section>
+        </form>
+        <aside class="shop-summary shop-panel" aria-live="polite">
+          <h3>Your order</h3>
+          <div id="order-lines">Select items to see your total.</div>
+          <div class="shop-total"><strong>Total</strong><strong id="order-total">£0.00</strong></div>
+          <p class="shop-small">Questions? Email <a href="mailto:info@lindsellcc.co.uk">info@lindsellcc.co.uk</a>.</p>
+        </aside>
       </div>
     </div>
-
-    <div class="shop-category-grid">
-      <article class="shop-category-card">
-        <div class="shop-card-top"><span class="shop-coming-label">Coming soon</span></div>
-        <h3>Supporters’ clothing</h3>
-        <p>Easy-to-wear Lindsell CC clothing for match days, social events and everyday use.</p>
-        <div class="shop-item-list"><span>Hoodies</span><span>T-shirts</span><span>Polos</span><span>Jackets</span></div>
-      </article>
-
-      <article class="shop-category-card">
-        <div class="shop-card-top"><span class="shop-coming-label">Coming soon</span></div>
-        <h3>Club merchandise</h3>
-        <p>Useful club-branded items for members and supporters, at the ground or away from cricket.</p>
-        <div class="shop-item-list"><span>Caps</span><span>Mugs</span><span>Bottles</span><span>Bags</span></div>
-      </article>
-
-      <article class="shop-category-card">
-        <div class="shop-card-top"><span class="shop-coming-label">Coming soon</span></div>
-        <h3>Playing & training wear</h3>
-        <p>A home for selected Lindsell CC playing, training and warm-up clothing as the range develops.</p>
-        <div class="shop-item-list"><span>Training tops</span><span>Mid-layers</span><span>Shorts</span><span>Teamwear</span></div>
-      </article>
-
-      <article class="shop-category-card">
-        <div class="shop-card-top"><span class="shop-coming-label">Coming soon</span></div>
-        <h3>Gifts & matchday extras</h3>
-        <p>Smaller club items, gifts and useful extras for Lindsell supporters of all ages.</p>
-        <div class="shop-item-list"><span>Beanies</span><span>Accessories</span><span>Gifts</span><span>Junior items</span></div>
-      </article>
+    <div id="shop-success" class="shop-panel shop-success" hidden tabindex="-1">
+      <h2>Thank you — your order is confirmed</h2>
+      <p>Your payment has been completed. Keep your Square receipt as proof of purchase.</p>
+      <p id="booking-reference"></p>
+      <p><a id="receipt-link" href="#" target="_blank" rel="noopener" hidden>View your Square receipt</a></p>
+      <a class="btn primary" href="index.html">Back to the club website</a>
     </div>
   </div>
-</section>
-
-<section class="section dark shop-support-section">
-  <div class="container shop-support-grid">
-    <div>
-      <div class="kicker">Have your say</div>
-      <h2>What would you like to see?</h2>
-      <p>If there’s something you’d genuinely buy — a hoodie, cap, mug, junior item or anything else — let us know. It’ll help shape what we launch first.</p>
-    </div>
-    <div class="shop-support-actions">
-      <a class="btn primary" href="contact.html#contact-form">Suggest a product</a>
-      <a class="shop-text-link" href="https://www.facebook.com/p/Lindsell-CC-61557502583913/" target="_blank" rel="noopener">Follow Lindsell CC on Facebook →</a>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer class="footer">
   <div class="container footer-grid">
@@ -151,6 +125,8 @@
   <div class="container small" style="margin-top:28px">© 2026 Lindsell Cricket Club</div>
 </footer>
 
-<script src="assets/js/site.js?v=1.3.21"></script>
+<script src="assets/js/site.js?v=1.3.23"></script>
+<script src="assets/js/config.js?v=1.3.23"></script>
+<script src="assets/js/shop.js?v=1.3.24" defer></script>
 </body>
 </html>
