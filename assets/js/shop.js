@@ -1,7 +1,8 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const api = `${window.LINDSELL_SITE_CONFIG.supabaseUrl}/functions/v1/club-shop`;
+  // Checkout uses its own Supabase project; the site-wide config belongs to the live scoreboard.
+  const api = 'https://nxjwggsbjshmvrmlmzee.supabase.co/functions/v1/club-shop';
   const previewMode = new URLSearchParams(location.search).get('preview') === '1';
   const money = pennies => new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(pennies / 100);
   const basketKey='lcc-awards-dinner-2026-basket-v1';
